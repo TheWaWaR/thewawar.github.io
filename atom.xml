@@ -4,7 +4,7 @@
   <title><![CDATA[WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-12T12:01:26+08:00</updated>
+  <updated>2013-07-12T13:17:01+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -413,6 +413,16 @@ chmod u+x jdk-6u45-linux-x64-rpm.bin
 <li>一个列表 List 列表</li>
 <li>一个列表 List 列表</li>
 </ul>
+
+
+<hr />
+
+<h1>For multiple machines test</h1>
+
+<ol>
+<li>A</li>
+<li>B @[13:15]</li>
+</ol>
 
 ]]></content>
   </entry>
