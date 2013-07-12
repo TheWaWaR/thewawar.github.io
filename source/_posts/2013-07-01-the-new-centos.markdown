@@ -111,7 +111,15 @@ Install JDK6
     ./jdk-6u45-linux-x64-rpm.bin
 
 
+ FAQ 
+=====
 
+### 1. How to let dhclient(or other service) autostart ?
+> [Configure Linux DHCP client ( dhclient ) to persistently look for
+an IP address lease](http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/)
+
+    ... [HOLD] ...
+    
 
 > Created at: [2013-06-29 12:45]
   

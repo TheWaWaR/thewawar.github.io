@@ -44,15 +44,18 @@ Installation
 
 
     
-Restart an Instance
--------------------
+Multiple machines
+-----------------
+> [Clone Your Octopress to Blog From Two Places](http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/)
 
-    git clone git://github.com/imathis/octopress.git octopress
-    cd octopress
-    mv SOME_PATH/cyan .themes/
-    rake install['cyan']
+    git clone -b source git@github.com:TheWaWaR/thewawar.github.io.git
     
+    cd thewawar.github.io
+    git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+
+    gem install bundler
+    rbenv rehash
+    bundle install
     rake setup_github_pages
     # Input:: git@github.com:TheWaWaR/thewawar.github.io.git
-    rm Gemfile.lock Rakefile _config.yml
-    rm -r sass source
+    
