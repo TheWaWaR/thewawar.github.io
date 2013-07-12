@@ -18,8 +18,9 @@
 7
 8
 9
-wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-./configure & &hellip;">
+10
+11
+yum install ncurses-devel wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -116,15 +117,19 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>yum install ncurses-devel
 </span><span class='line'>
+</span><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
 </span><span class='line'>ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
+</span><span class='line'>
 </span><span class='line'>wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
 </span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
 </span><span class='line'>
 </span><span class='line'><span class="c"># Download my tmux.conf from gist.github.com</span>
-</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef639276a8b9/tmux.conf &gt; ~/.tmux.conf
+</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/96d183211a899462a923a2dc1532b3490bbdd056/tmux.conf &gt; ~/.tmux.conf
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -147,13 +152,10 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 <p></p>
 
 <ul>
-<li>In ~/.tmux.conf</li>
+<li><p>In ~/.tmux.conf (DO <strong>DOT</strong> edit this file directly)</p>
+
+<p>  set-option -g default-shell $TMUX_SHELL</p></li>
 </ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
-</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
@@ -199,15 +201,73 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 <p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
  一个趁手的Emacs.</p>
 
-<h3>Install Emacs</h3>
+<h3>1. Install Emacs</h3>
 
 <pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
 tar Jxf emacs-24.3.tar.xz
-./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no with-png=no --with-gif=no --with-tiff=no
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no --with-png=no --with-gif=no --with-tiff=no
 make &amp;&amp; make install
 </code></pre>
 
+<h3>2. Get configuration</h3>
+
+<pre><code>git clone git@github.com:TheWaWaR/.emacs.d.git
+
+# In emacs, compile all files in .emacs.d directory
+C-u 0 M-x byte-recompile-directory
+</code></pre>
+
+<h2>Oh! The features!</h2>
+
+<h3>. undo tree</h3>
+
+<h3>. Window control : [winner-undo]</h3>
+
+<h3>. Tabs : [tabbar]</h3>
+
+<h3>. auto-complete</h3>
+
+<h3>. yasnippet</h3>
+
+<h3>. Color theme : [zenburn]</h3>
+
+<h3>. Dictionary : [youdao, sdcv]</h3>
+
+<h3>. Version control : [magit]</h3>
+
+<h3>. Input method : [eim]</h3>
+
+<h3>. Markup language : [markdown, rst]</h3>
+
+<h3>. Python support</h3>
+
+<ul>
+<li>highlight-indentation</li>
+<li>pyflakes</li>
+<li>jedi</li>
+</ul>
+
+
+<h3>. Global varibles : []</h3>
+
+<h3>. Little modes:</h3>
+
+<pre><code>saveplace      --- automatically save place in files
+ffap           --- file file (or url) at point
+uniquify       --- unique buffer names dependent on file name
+recentf        --- setup a menu of recently opened files
+open-next-line --- Behave like vi's o command
+tramp          --- Transparent Remote Access, Multiple Protocol
+ansi-color     --- translate ANSI escape sequences into faces
+</code></pre>
+
+<h3>. My custom functions : [my-defuns.el]</h3>
+
+<h3>. My custom keybinds : [my-key-bindings.el]</h3>
+
 <h2> FAQ </h2>
+
+<p>&hellip;</p>
 </div>
   
   
@@ -293,7 +353,7 @@ gem install bundler
 rbenv rehash
 bundle install
 rake setup_github_pages
-# Input::
+# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
 </code></pre>
 </div>
   
@@ -336,14 +396,20 @@ rake setup_github_pages
 
 <blockquote><p> <a href="https://gist.github.com/bvajda/1296795">Install Postgresql 9.1 server on CentOS 6</a></p></blockquote>
 
+<pre><code>rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
+yum install postgresql91-server.x86_64 postgresql91-devel.x86_64
+</code></pre>
+
 <h3>Additional (after install postgresql 9.1)</h3>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
+<span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>service postgresql-9.1 initdb
+</span><span class='line'>
+</span><span class='line'><span class="c"># You&#39;d better to edit ~/.zshrc</span>
 </span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/pgsql-9.1/bin     <span class="c"># For install pgcopy2</span>
-</span><span class='line'>yum install postgresql91-devel
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -387,7 +453,7 @@ rake setup_github_pages
 </span><span class='line'>
 </span><span class='line'><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">jerry</span><span class="p">;</span>
 </span><span class='line'><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="k">DATABASE</span> <span class="n">jerry</span> <span class="k">to</span> <span class="n">tom</span><span class="p">;</span>
-</span><span class='line'><span class="err">\</span><span class="n">q</span><span class="p">;</span>
+</span><span class='line'><span class="err">\</span><span class="n">q</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -413,11 +479,14 @@ password that after md5 processed).</p>
 <p><em>[Option]</em> :: In <em>postgresql.conf</em> , Change <code>listen_addresses</code> from
  <code>localhost</code> to <code>*</code> so you can connect postgresql from remote host.</p>
 
-<h2>Common Helpers </h2>
+<h1> FAQ </h1>
 
-<h3>1. How to import data or scheme from .sql file?</h3>
+<h3>1. How to import(or export) data or scheme from .sql file?</h3>
 
-<h3>2. How to export data or scheme from server?</h3>
+<pre><code>psql -U userName dbName &lt; DATA_OR_SCHEME.sql
+
+pg_dump -U userName dbname &gt; output.sql
+</code></pre>
 </div>
   
   
@@ -467,8 +536,10 @@ password that after md5 processed).</p>
 
 <pre><code>yum upgrade
 yum groupinstall "Development Tools"
-yum install wget bzip2 unzip zip tree
+yum install wget bzip2 unzip zip tree man 
 </code></pre>
+
+<p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
 
 </div>
   

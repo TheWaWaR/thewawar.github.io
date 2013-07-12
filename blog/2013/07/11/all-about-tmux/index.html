@@ -18,8 +18,9 @@
 7
 8
 9
-wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-./configure & &hellip;">
+10
+11
+yum install ncurses-devel wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,15 +114,19 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>yum install ncurses-devel
 </span><span class='line'>
+</span><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
 </span><span class='line'>ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
+</span><span class='line'>
 </span><span class='line'>wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
 </span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
 </span><span class='line'>
 </span><span class='line'><span class="c"># Download my tmux.conf from gist.github.com</span>
-</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef639276a8b9/tmux.conf &gt; ~/.tmux.conf
+</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/96d183211a899462a923a2dc1532b3490bbdd056/tmux.conf &gt; ~/.tmux.conf
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -144,13 +149,10 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 <p></p>
 
 <ul>
-<li>In ~/.tmux.conf</li>
+<li><p>In ~/.tmux.conf (DO <strong>DOT</strong> edit this file directly)</p>
+
+<p>  set-option -g default-shell $TMUX_SHELL</p></li>
 </ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
-</span></code></pre></td></tr></table></div></figure>
 
 </div>
 

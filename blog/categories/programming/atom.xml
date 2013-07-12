@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-12T15:11:25+08:00</updated>
+  <updated>2013-07-13T00:22:51+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -22,15 +22,17 @@
 
 <p>``` bash</p>
 
-<pre><code>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-./configure &amp;&amp; make &amp;&amp; make install
+<pre><code>yum install ncurses-devel
 
+wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+./configure &amp;&amp; make &amp;&amp; make install    
 ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
+
 wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
 ./configure &amp;&amp; make &amp;&amp; make install
 
 # Download my tmux.conf from gist.github.com
-curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef639276a8b9/tmux.conf &gt; ~/.tmux.conf
+curl https://gist.github.com/TheWaWaR/5889519/raw/96d183211a899462a923a2dc1532b3490bbdd056/tmux.conf &gt; ~/.tmux.conf
 </code></pre>
 
 <p>```</p>
@@ -38,16 +40,23 @@ curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef
 <h2>Configure Tmux &amp; Bash &amp; Zsh</h2>
 
 <ul>
-<li><p>In ~/.bashrc
-<code>bash
-  export TERM='xterm-256color'
-  export TMUX_SHELL='/usr/local/bin/zsh'
-  alias tfg='tmux attach'
-</code></p></li>
-<li><p>In ~/.tmux.conf
-<code>
-  set-option -g default-shell $TMUX_SHELL
-</code></p></li>
+<li>In ~/.bashrc</li>
+</ul>
+
+
+<p>``` bash</p>
+
+<pre><code>export TERM='xterm-256color'
+export TMUX_SHELL='/usr/local/bin/zsh'
+alias tfg='tmux attach'
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li><p>In ~/.tmux.conf (DO <strong>DOT</strong> edit this file directly)</p>
+
+<p>  set-option -g default-shell $TMUX_SHELL</p></li>
 </ul>
 
 ]]></content>
@@ -65,15 +74,73 @@ curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef
 <p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
  一个趁手的Emacs.</p>
 
-<h3>Install Emacs</h3>
+<h3>1. Install Emacs</h3>
 
 <pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
 tar Jxf emacs-24.3.tar.xz
-./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no with-png=no --with-gif=no --with-tiff=no
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no --with-png=no --with-gif=no --with-tiff=no
 make &amp;&amp; make install
 </code></pre>
 
+<h3>2. Get configuration</h3>
+
+<pre><code>git clone git@github.com:TheWaWaR/.emacs.d.git
+
+# In emacs, compile all files in .emacs.d directory
+C-u 0 M-x byte-recompile-directory
+</code></pre>
+
+<h2>Oh! The features!</h2>
+
+<h3>. undo tree</h3>
+
+<h3>. Window control : [winner-undo]</h3>
+
+<h3>. Tabs : [tabbar]</h3>
+
+<h3>. auto-complete</h3>
+
+<h3>. yasnippet</h3>
+
+<h3>. Color theme : [zenburn]</h3>
+
+<h3>. Dictionary : [youdao, sdcv]</h3>
+
+<h3>. Version control : [magit]</h3>
+
+<h3>. Input method : [eim]</h3>
+
+<h3>. Markup language : [markdown, rst]</h3>
+
+<h3>. Python support</h3>
+
+<ul>
+<li>highlight-indentation</li>
+<li>pyflakes</li>
+<li>jedi</li>
+</ul>
+
+
+<h3>. Global varibles : []</h3>
+
+<h3>. Little modes:</h3>
+
+<pre><code>saveplace      --- automatically save place in files
+ffap           --- file file (or url) at point
+uniquify       --- unique buffer names dependent on file name
+recentf        --- setup a menu of recently opened files
+open-next-line --- Behave like vi's o command
+tramp          --- Transparent Remote Access, Multiple Protocol
+ansi-color     --- translate ANSI escape sequences into faces
+</code></pre>
+
+<h3>. My custom functions : [my-defuns.el]</h3>
+
+<h3>. My custom keybinds : [my-key-bindings.el]</h3>
+
 <h2> FAQ </h2>
+
+<p>&hellip;</p>
 ]]></content>
   </entry>
   
@@ -130,7 +197,7 @@ gem install bundler
 rbenv rehash
 bundle install
 rake setup_github_pages
-# Input::
+# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
 </code></pre>
 ]]></content>
   </entry>
@@ -144,13 +211,18 @@ rake setup_github_pages
 
 <blockquote><p> <a href="https://gist.github.com/bvajda/1296795">Install Postgresql 9.1 server on CentOS 6</a></p></blockquote>
 
+<pre><code>rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
+yum install postgresql91-server.x86_64 postgresql91-devel.x86_64
+</code></pre>
+
 <h3>Additional (after install postgresql 9.1)</h3>
 
 <p>``` bash</p>
 
 <pre><code>service postgresql-9.1 initdb
+
+# You'd better to edit ~/.zshrc
 export PATH=$PATH:/usr/pgsql-9.1/bin     # For install pgcopy2
-yum install postgresql91-devel
 </code></pre>
 
 <p>```</p>
@@ -185,7 +257,7 @@ psql
 
 CREATE DATABASE jerry;
 GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
-\q;
+\q
 </code></pre>
 
 <p>```</p>
@@ -212,11 +284,14 @@ password that after md5 processed).</p>
 <p><em>[Option]</em> :: In <em>postgresql.conf</em> , Change <code>listen_addresses</code> from
  <code>localhost</code> to <code>*</code> so you can connect postgresql from remote host.</p>
 
-<h2>Common Helpers </h2>
+<h1> FAQ </h1>
 
-<h3>1. How to import data or scheme from .sql file?</h3>
+<h3>1. How to import(or export) data or scheme from .sql file?</h3>
 
-<h3>2. How to export data or scheme from server?</h3>
+<pre><code>psql -U userName dbName &lt; DATA_OR_SCHEME.sql
+
+pg_dump -U userName dbname &gt; output.sql
+</code></pre>
 ]]></content>
   </entry>
   
@@ -237,13 +312,23 @@ password that after md5 processed).</p>
 
 <pre><code>yum upgrade
 yum groupinstall "Development Tools"
-yum install wget bzip2 unzip zip tree
+yum install wget bzip2 unzip zip tree man 
 </code></pre>
+
+<p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
 
 <!-- more -->
 
 
 <h1>Install base packages</h1>
+
+<h2>From other articles</h2>
+
+<h3>1. Install tmux</h3>
+
+<h3>2. Install emacs</h3>
+
+<h3>3. Install postgresql</h3>
 
 <h2>Install Python2.7</h2>
 
@@ -264,6 +349,12 @@ make &amp;&amp; make altinstall
 <pre><code>wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-0.7.4.tar.gz
 wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.3.1.tar.gz
 # Install them by the given order
+
+# Edit *~/.pip/pip.conf* and add this:
+[global]
+index-url=http://pypi.v2ex.com/simple
+
+pip install ipython virtualenv
 </code></pre>
 
 <h2>Configure Github</h2>
@@ -271,14 +362,6 @@ wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.
 <pre><code>cd ~/.ssh
 ssh-kengen
 # Copy *id_rsa.pub* to *SSH Keys* @github.com
-</code></pre>
-
-<h2>Install Goagent</h2>
-
-<pre><code>curl -L https://github.com/goagent/goagent/archive/3.0.zip &gt; goagent-3.0.zip
-unzip goagent-3.0.zip
-# Edit *proxy.ini* change *appid* to *weet-proxy*
-python2.7 proxy.py
 </code></pre>
 
 <h2>Install Zsh</h2>
@@ -289,9 +372,10 @@ tar xf zsh-5.0.2.tar.bz2
 tar xf zsh-5.0.2-doc.tar.bz2
 cd zsh-5.0.2
 ./configure &amp;&amp; make &amp;&amp; make install
+
 # Config zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/c2aa3395f050a273eaabd1ca6bc622af70864ec5/.zshrc &gt; ~/.zshrc
+curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/87a8f1bddec42d94f93e2d851e39ad6cf4e0ef48/.zshrc &gt; ~/.zshrc
 </code></pre>
 
 <h2>Install Ruby</h2>
@@ -302,8 +386,7 @@ curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/c2aa3395f050a273e
 git clone git://github.com/sstephenson/rbenv.git .rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.zshenv
 echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.zshenv
-git clone git://github.com/sstephenson/ruby-build.git
-~/.rbenv/plugins/ruby-build
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 source ~/.zshenv
 </code></pre>
 

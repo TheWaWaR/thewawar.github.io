@@ -9,7 +9,7 @@
   <meta name="author" content="weet">
 
   
-  <meta name="description" content="Installation Some requirements 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置 一个趁手的Emacs. Install Emacs wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz &hellip;">
+  <meta name="description" content="Installation Some requirements 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置 一个趁手的Emacs. 1. Install Emacs wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,15 +99,73 @@
 <p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
  一个趁手的Emacs.</p>
 
-<h3>Install Emacs</h3>
+<h3>1. Install Emacs</h3>
 
 <pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
 tar Jxf emacs-24.3.tar.xz
-./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no with-png=no --with-gif=no --with-tiff=no
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no --with-png=no --with-gif=no --with-tiff=no
 make &amp;&amp; make install
 </code></pre>
 
+<h3>2. Get configuration</h3>
+
+<pre><code>git clone git@github.com:TheWaWaR/.emacs.d.git
+
+# In emacs, compile all files in .emacs.d directory
+C-u 0 M-x byte-recompile-directory
+</code></pre>
+
+<h2>Oh! The features!</h2>
+
+<h3>. undo tree</h3>
+
+<h3>. Window control : [winner-undo]</h3>
+
+<h3>. Tabs : [tabbar]</h3>
+
+<h3>. auto-complete</h3>
+
+<h3>. yasnippet</h3>
+
+<h3>. Color theme : [zenburn]</h3>
+
+<h3>. Dictionary : [youdao, sdcv]</h3>
+
+<h3>. Version control : [magit]</h3>
+
+<h3>. Input method : [eim]</h3>
+
+<h3>. Markup language : [markdown, rst]</h3>
+
+<h3>. Python support</h3>
+
+<ul>
+<li>highlight-indentation</li>
+<li>pyflakes</li>
+<li>jedi</li>
+</ul>
+
+
+<h3>. Global varibles : []</h3>
+
+<h3>. Little modes:</h3>
+
+<pre><code>saveplace      --- automatically save place in files
+ffap           --- file file (or url) at point
+uniquify       --- unique buffer names dependent on file name
+recentf        --- setup a menu of recently opened files
+open-next-line --- Behave like vi's o command
+tramp          --- Transparent Remote Access, Multiple Protocol
+ansi-color     --- translate ANSI escape sequences into faces
+</code></pre>
+
+<h3>. My custom functions : [my-defuns.el]</h3>
+
+<h3>. My custom keybinds : [my-key-bindings.el]</h3>
+
 <h2> FAQ </h2>
+
+<p>&hellip;</p>
 </div>
 
 

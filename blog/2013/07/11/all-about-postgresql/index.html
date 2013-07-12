@@ -9,11 +9,8 @@
   <meta name="author" content="weet">
 
   
-  <meta name="description" content="Installation Install Postgresql 9.1 server on CentOS 6 Additional (after install postgresql 9.1) 1
-2
-3
-service postgresql-9.1 initdb
-export PATH=$ &hellip;">
+  <meta name="description" content="Installation Install Postgresql 9.1 server on CentOS 6 rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
+yum &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -100,14 +97,20 @@ export PATH=$ &hellip;">
 
 <blockquote><p> <a href="https://gist.github.com/bvajda/1296795">Install Postgresql 9.1 server on CentOS 6</a></p></blockquote>
 
+<pre><code>rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
+yum install postgresql91-server.x86_64 postgresql91-devel.x86_64
+</code></pre>
+
 <h3>Additional (after install postgresql 9.1)</h3>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
+<span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>service postgresql-9.1 initdb
+</span><span class='line'>
+</span><span class='line'><span class="c"># You&#39;d better to edit ~/.zshrc</span>
 </span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/pgsql-9.1/bin     <span class="c"># For install pgcopy2</span>
-</span><span class='line'>yum install postgresql91-devel
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -151,7 +154,7 @@ export PATH=$ &hellip;">
 </span><span class='line'>
 </span><span class='line'><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">jerry</span><span class="p">;</span>
 </span><span class='line'><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="k">DATABASE</span> <span class="n">jerry</span> <span class="k">to</span> <span class="n">tom</span><span class="p">;</span>
-</span><span class='line'><span class="err">\</span><span class="n">q</span><span class="p">;</span>
+</span><span class='line'><span class="err">\</span><span class="n">q</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -177,11 +180,14 @@ password that after md5 processed).</p>
 <p><em>[Option]</em> :: In <em>postgresql.conf</em> , Change <code>listen_addresses</code> from
  <code>localhost</code> to <code>*</code> so you can connect postgresql from remote host.</p>
 
-<h2>Common Helpers </h2>
+<h1> FAQ </h1>
 
-<h3>1. How to import data or scheme from .sql file?</h3>
+<h3>1. How to import(or export) data or scheme from .sql file?</h3>
 
-<h3>2. How to export data or scheme from server?</h3>
+<pre><code>psql -U userName dbName &lt; DATA_OR_SCHEME.sql
+
+pg_dump -U userName dbname &gt; output.sql
+</code></pre>
 </div>
 
 
