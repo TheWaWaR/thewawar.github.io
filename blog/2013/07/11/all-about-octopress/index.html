@@ -5,14 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - WEET's way</title>
+  <title>All about Octopress - WEET's way</title>
   <meta name="author" content="weet">
 
   
-  <meta name="description" content="Blog Archive 2013 All about Tmux
-Jul 11 2013 posted in Programming All about Octopress
-Jul 11 2013 posted in Programming All about Postgresql
-Jul 11 &hellip;">
+  <meta name="description" content="Installation 1. Setup Octopress git clone git://github.com/imathis/octopress.git octopress
+cd octopress # If you use RVM, You'll be asked if you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +19,7 @@ Jul 11 &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://TheWaWaR.github.io/blog/archives/">
+  <link rel="canonical" href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,102 +64,139 @@ Jul 11 &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">All About Octopress</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T13:59:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><h2>Installation</h2>
 
-  
-  <h2>2013</h2>
+<h3>1. Setup Octopress</h3>
 
-<article>
-  
-<h1><a href="/blog/2013/07/11/all-about-tmux/">All about Tmux</a></h1>
-<time datetime="2013-07-11T14:03:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>11</span> <span class='year'>2013</span></time>
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress    # If you use RVM, You'll be asked if you trust the
+.rvmrc file (say yes).
+ruby --version  # Should report Ruby 1.9.3p194
+</code></pre>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/programming/'>Programming</a></span>
-</footer>
+<h3>2. Install Dependencies</h3>
 
+<pre><code>gem install bundler
+rbenv rehash
+bundle install
+</code></pre>
 
-</article>
+<h3>3. Install the default Octopress theme</h3>
 
+<pre><code>rake intall
+</code></pre>
 
+<h3>4. Deploying to Github Pages</h3>
 
-<article>
-  
-<h1><a href="/blog/2013/07/11/all-about-octopress/">All about Octopress</a></h1>
-<time datetime="2013-07-11T13:59:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>11</span> <span class='year'>2013</span></time>
+<pre><code>rake seup_github_pages
+rake gen_deploy
+</code></pre>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/programming/'>Programming</a></span>
-</footer>
+<h3>5. Commit the source for blog</h3>
 
+<pre><code>git add .
+git commit -m "COMMIT MESSAGE"
+git push origin source
+</code></pre>
 
-</article>
+<h2>Restart an Instance</h2>
 
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress
+mv SOME_PATH/cyan .themes/
+rake install['cyan']
 
-
-<article>
-  
-<h1><a href="/blog/2013/07/11/all-about-postgresql/">All about Postgresql</a></h1>
-<time datetime="2013-07-11T11:36:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>11</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/programming/'>Programming</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a></h1>
-<time datetime="2013-07-11T00:00:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>11</span> <span class='year'>2013</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/07/01/the-new-centos/">The new CentOS</a></h1>
-<time datetime="2013-07-01T12:39:00+08:00" pubdate><span class='month'>Jul</span> <span class='day'>01</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/programming/'>Programming</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/06/29/test-octopress/">Test Octopress & Markdown</a></h1>
-<time datetime="2013-06-29T14:14:00+08:00" pubdate><span class='month'>Jun</span> <span class='day'>29</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/test/'>Test</a></span>
-</footer>
-
-
-</article>
-
+rake setup_github_pages
+# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
+rm Gemfile.lock Rakefile _config.yml
+rm -r sass source
+</code></pre>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">weet</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T13:59:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/11/all-about-postgresql/" title="Previous Post: All about Postgresql">&laquo; All about Postgresql</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/11/all-about-tmux/" title="Next Post: All about Tmux">All about Tmux &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -216,7 +251,10 @@ Jul 11 &hellip;">
       var disqus_shortname = 'thewawar';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress/';
+        var disqus_url = 'http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

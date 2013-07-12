@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Test | WEET's way]]></title>
+  <link href="http://TheWaWaR.github.io/blog/categories/test/atom.xml" rel="self"/>
+  <link href="http://TheWaWaR.github.io/"/>
+  <updated>2013-07-12T11:41:43+08:00</updated>
+  <id>http://TheWaWaR.github.io/</id>
+  <author>
+    <name><![CDATA[weet]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Test Octopress & Markdown]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/06/29/test-octopress/"/>
+    <updated>2013-06-29T14:14:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/06/29/test-octopress</id>
+    <content type="html"><![CDATA[<h1>List</h1>
+
+<ul>
+<li>one
+
+<ol>
+<li>here</li>
+<li>there</li>
+<li>and there</li>
+</ol>
+</li>
+<li>two</li>
+<li>three</li>
+<li>four
+
+<ul>
+<li>here</li>
+<li>there</li>
+</ul>
+</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h1>Code</h1>
+
+<h2>with language</h2>
+
+<p>``` python</p>
+
+<pre><code>def hello():
+    print 'Great!'
+</code></pre>
+
+<p>```</p>
+
+<h2>without line number</h2>
+
+<pre><code>configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+
+<hr />
+
+<h1>中文测试，Chinese Test</h1>
+
+<p>Some content, 一些内容</p>
+
+<blockquote><p>Block quote, 引用</p></blockquote>
+
+<h2>二级标题，subtitle</h2>
+
+<p>Some content, 一些内容</p>
+
+<blockquote><p>Block quote, 引用</p></blockquote>
+
+<h3>1. 三级标题, sub-sub-title</h3>
+
+<p>Some content, 一些内容</p>
+
+<ul>
+<li>一个列表 List 列表</li>
+<li>一个列表 List 列表
+
+<ul>
+<li>子列表 List 列表</li>
+<li>子列表 List 列表</li>
+<li>子列表 List 列表</li>
+</ul>
+</li>
+<li>一个列表 List 列表</li>
+<li>一个列表 List 列表</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -5,21 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>WEET's way</title>
+  <title>All about Postgresql - WEET's way</title>
   <meta name="author" content="weet">
 
   
-  <meta name="description" content="Installation 1
+  <meta name="description" content="Installation Install Postgresql 9.1 server on CentOS 6 Additional (after install postgresql 9.1) 1
 2
 3
-4
-5
-6
-7
-8
-9
-wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-./configure & &hellip;">
+service postgresql-9.1 initdb
+export PATH=$ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -28,7 +22,7 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://TheWaWaR.github.io/">
+  <link rel="canonical" href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -72,186 +66,12 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/07/11/all-about-tmux/">All About Tmux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-11T14:03:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/11/all-about-tmux/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Installation</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
-</span><span class='line'>
-</span><span class='line'>ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
-</span><span class='line'>wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
-</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
-</span><span class='line'>
-</span><span class='line'><span class="c"># Download my tmux.conf from gist.github.com</span>
-</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef639276a8b9/tmux.conf &gt; ~/.tmux.conf
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Configure Tmux &amp; Bash &amp; Zsh</h2>
-
-<ul>
-<li>In ~/.bashrc</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span><span class="s1">&#39;xterm-256color&#39;</span>
-</span><span class='line'><span class="nb">export </span><span class="nv">TMUX_SHELL</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/zsh&#39;</span>
-</span><span class='line'><span class="nb">alias </span><span class="nv">tfg</span><span class="o">=</span><span class="s1">&#39;tmux attach&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<ul>
-<li>In ~/.tmux.conf</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/11/all-about-octopress/">All About Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-11T13:59:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/11/all-about-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Installation</h2>
-
-<h3>1. Setup Octopress</h3>
-
-<pre><code>git clone git://github.com/imathis/octopress.git octopress
-cd octopress    # If you use RVM, You'll be asked if you trust the
-.rvmrc file (say yes).
-ruby --version  # Should report Ruby 1.9.3p194
-</code></pre>
-
-<h3>2. Install Dependencies</h3>
-
-<pre><code>gem install bundler
-rbenv rehash
-bundle install
-</code></pre>
-
-<h3>3. Install the default Octopress theme</h3>
-
-<pre><code>rake intall
-</code></pre>
-
-<h3>4. Deploying to Github Pages</h3>
-
-<pre><code>rake seup_github_pages
-rake gen_deploy
-</code></pre>
-
-<h3>5. Commit the source for blog</h3>
-
-<pre><code>git add .
-git commit -m "COMMIT MESSAGE"
-git push origin source
-</code></pre>
-
-<h2>Restart an Instance</h2>
-
-<pre><code>git clone git://github.com/imathis/octopress.git octopress
-cd octopress
-mv SOME_PATH/cyan .themes/
-rake install['cyan']
-
-rake setup_github_pages
-# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
-rm Gemfile.lock Rakefile _config.yml
-rm -r sass source
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/11/all-about-postgresql/">All About Postgresql</a></h1>
+      <h1 class="entry-title">All About Postgresql</h1>
     
     
       <p class="meta">
@@ -269,14 +89,14 @@ rm -r sass source
 
 <time datetime="2013-07-11T11:36:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
         
-         | <a href="/blog/2013/07/11/all-about-postgresql/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>Installation</h2>
+<div class="entry-content"><h2>Installation</h2>
 
 <blockquote><p> <a href="https://gist.github.com/bvajda/1296795">Install Postgresql 9.1 server on CentOS 6</a></p></blockquote>
 
@@ -363,60 +183,16 @@ password that after md5 processed).</p>
 
 <h3>2. How to export data or scheme from server?</h3>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">weet</span></span>
 
-<time datetime="2013-07-11T00:00:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/11/all-about-emacs/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>7e99c210617b25fa015864f2025d585bddc1625b</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/01/the-new-centos/">The New CentOS</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -428,111 +204,44 @@ password that after md5 processed).</p>
   
 
 
-<time datetime="2013-07-01T12:39:00+08:00" pubdate data-updated="true">Jul 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/01/the-new-centos/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Initialization</h1>
-
-<h3>1. Download the mini version of CentOS-6.4 ISO file.</h3>
-
-<h3>2. Configure yum</h3>
-
-<p>  Just use the default(centos.ustc.edu.cn). So, nothing to do ~</p>
-
-<h3>3. Install some important packages</h3>
-
-<pre><code>yum upgrade
-yum groupinstall "Development Tools"
-yum install wget bzip2 unzip zip tree
-</code></pre>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/07/01/the-new-centos/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2013-07-11T11:36:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/29/test-octopress/">Test Octopress & Markdown</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
 
 
-<time datetime="2013-06-29T14:14:00+08:00" pubdate data-updated="true">Jun 29<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/29/test-octopress/#disqus_thread">Comments</a>
-        
-      </p>
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  
+  
+</div>
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/11/all-about-emacs/" title="Previous Post: All About Emacs">&laquo; All About Emacs</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/11/all-about-octopress/" title="Next Post: All about Octopress">All about Octopress &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
 
-  <div class="entry-content"><h1>List</h1>
-
-<ul>
-<li>one
-
-<ol>
-<li>here</li>
-<li>there</li>
-<li>and there</li>
-</ol>
-</li>
-<li>two</li>
-<li>three</li>
-<li>four
-
-<ul>
-<li>here</li>
-<li>there</li>
-</ul>
-</li>
-</ul>
-
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/29/test-octopress/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -569,6 +278,7 @@ yum install wget bzip2 unzip zip tree
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -583,7 +293,10 @@ yum install wget bzip2 unzip zip tree
       var disqus_shortname = 'thewawar';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql/';
+        var disqus_url = 'http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
