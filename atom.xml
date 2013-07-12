@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[WEET's way]]></title>
+  <link href="http://TheWaWaR.github.io/atom.xml" rel="self"/>
+  <link href="http://TheWaWaR.github.io/"/>
+  <updated>2013-07-12T12:01:26+08:00</updated>
+  <id>http://TheWaWaR.github.io/</id>
+  <author>
+    <name><![CDATA[weet]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[All about Tmux]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-tmux/"/>
+    <updated>2013-07-11T14:03:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-tmux</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+</span><span class='line'>
+</span><span class='line'>ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
+</span><span class='line'>wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
+</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+</span><span class='line'>
+</span><span class='line'><span class="c"># Download my tmux.conf from gist.github.com</span>
+</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/919613b515073170780195a506b3ef639276a8b9/tmux.conf &gt; ~/.tmux.conf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Configure Tmux &amp; Bash &amp; Zsh</h2>
+
+<ul>
+<li>In ~/.bashrc</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span><span class="s1">&#39;xterm-256color&#39;</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">TMUX_SHELL</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/zsh&#39;</span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">tfg</span><span class="o">=</span><span class="s1">&#39;tmux attach&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<ul>
+<li>In ~/.tmux.conf</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about Octopress]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress/"/>
+    <updated>2013-07-11T13:59:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<h3>1. Setup Octopress</h3>
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress    # If you use RVM, You'll be asked if you trust the
+.rvmrc file (say yes).
+ruby --version  # Should report Ruby 1.9.3p194
+</code></pre>
+
+<h3>2. Install Dependencies</h3>
+
+<pre><code>gem install bundler
+rbenv rehash
+bundle install
+</code></pre>
+
+<h3>3. Install the default Octopress theme</h3>
+
+<pre><code>rake intall
+</code></pre>
+
+<h3>4. Deploying to Github Pages</h3>
+
+<pre><code>rake seup_github_pages
+rake gen_deploy
+</code></pre>
+
+<h3>5. Commit the source for blog</h3>
+
+<pre><code>git add .
+git commit -m "COMMIT MESSAGE"
+git push origin source
+</code></pre>
+
+<h2>Restart an Instance</h2>
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress
+mv SOME_PATH/cyan .themes/
+rake install['cyan']
+
+rake setup_github_pages
+# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
+rm Gemfile.lock Rakefile _config.yml
+rm -r sass source
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about Postgresql]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql/"/>
+    <updated>2013-07-11T11:36:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<blockquote><p> <a href="https://gist.github.com/bvajda/1296795">Install Postgresql 9.1 server on CentOS 6</a></p></blockquote>
+
+<h3>Additional (after install postgresql 9.1)</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>service postgresql-9.1 initdb
+</span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/pgsql-9.1/bin     <span class="c"># For install pgcopy2</span>
+</span><span class='line'>yum install postgresql91-devel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Add user</h2>
+
+<blockquote><p> <a href="http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/">PostgreSQL add or create a user account and grant permission for database</a></p></blockquote>
+
+<h3>1. In Shell</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Add a user called *tom*</span>
+</span><span class='line'>adduser tom
+</span><span class='line'>passwd tom
+</span><span class='line'>
+</span><span class='line'><span class="c"># Change user</span>
+</span><span class='line'>su - postgres
+</span><span class='line'>
+</span><span class='line'><span class="c"># Start postgresql client</span>
+</span><span class='line'>psql
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. Inside Postgresql</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">USER</span> <span class="n">tom</span> <span class="k">WITH</span> <span class="n">PASSWORD</span> <span class="s1">&#39;public&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">-- Use this to change password &gt;&gt;&gt; \password tom;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">jerry</span><span class="p">;</span>
+</span><span class='line'><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="k">DATABASE</span> <span class="n">jerry</span> <span class="k">to</span> <span class="n">tom</span><span class="p">;</span>
+</span><span class='line'><span class="err">\</span><span class="n">q</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Authentication issue</h2>
+
+<p>By default, the authentication method is (<code>peer</code> for Unix domain
+socket connections AND <code>ident</code> for IPV4 local connections), if you
+login postgresql server by:</p>
+
+<pre><code>psql -d myDB -U kafka -h 127.0.0.1
+</code></pre>
+
+<p>It will report an error like this:</p>
+
+<pre><code>psql: FATAL:  Ident authentication failed for user "kafka"
+</code></pre>
+
+<p>In <em>pg_hba.conf</em>, Change all authentication type to <code>md5</code> (means by
+password that after md5 processed).</p>
+
+<blockquote><p> <a href="http://www.postgresql.org/docs/9.1/static/auth-methods.html">Authentication Methods</a></p></blockquote>
+
+<p><em>[Option]</em> :: In <em>postgresql.conf</em> , Change <code>listen_addresses</code> from
+ <code>localhost</code> to <code>*</code> so you can connect postgresql from remote host.</p>
+
+<h2>Common Helpers </h2>
+
+<h3>1. How to import data or scheme from .sql file?</h3>
+
+<h3>2. How to export data or scheme from server?</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All About Emacs]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs/"/>
+    <updated>2013-07-11T00:00:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs</id>
+    <content type="html"><![CDATA[<p>7e99c210617b25fa015864f2025d585bddc1625b</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The new CentOS]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos/"/>
+    <updated>2013-07-01T12:39:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos</id>
+    <content type="html"><![CDATA[<h1>Initialization</h1>
+
+<h3>1. Download the mini version of CentOS-6.4 ISO file.</h3>
+
+<h3>2. Configure yum</h3>
+
+<p>  Just use the default(centos.ustc.edu.cn). So, nothing to do ~</p>
+
+<h3>3. Install some important packages</h3>
+
+<pre><code>yum upgrade
+yum groupinstall "Development Tools"
+yum install wget bzip2 unzip zip tree
+</code></pre>
+
+<!-- more -->
+
+
+<h1>Install base packages</h1>
+
+<h2>Install Python2.7</h2>
+
+<blockquote><p> <a href="http://toomuchdata.com/2012/06/25/how-to-install-python-2-7-3-on-centos-6-2/">How to install Python 2.7 and 3.3 on CentOS 6</a></p></blockquote>
+
+<h3>1. Install Python itself</h3>
+
+<pre><code>yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
+wget http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
+tar xf Python-2.7.5.tar.bz2
+cd Python-2.7.5
+./configure --prefix=/usr/local
+make &amp;&amp; make altinstall
+</code></pre>
+
+<h3>2. Install pip</h3>
+
+<pre><code>wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-0.7.4.tar.gz
+wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.3.1.tar.gz
+# Install them by the given order
+</code></pre>
+
+<h2>Configure Github</h2>
+
+<pre><code>cd ~/.ssh
+ssh-kengen
+# Copy *id_rsa.pub* to *SSH Keys* @github.com
+</code></pre>
+
+<h2>Install Goagent</h2>
+
+<pre><code>curl -L https://github.com/goagent/goagent/archive/3.0.zip &gt; goagent-3.0.zip
+unzip goagent-3.0.zip
+# Edit *proxy.ini* change *appid* to *weet-proxy*
+python2.7 proxy.py
+</code></pre>
+
+<h2>Install Zsh</h2>
+
+<pre><code>wget http://sourceforge.net/projects/zsh/files/zsh/5.0.2/zsh-5.0.2.tar.bz2
+wget http://sourceforge.net/projects/zsh/files/zsh-doc/5.0.2/zsh-5.0.2-doc.tar.bz2
+tar xf zsh-5.0.2.tar.bz2
+tar xf zsh-5.0.2-doc.tar.bz2
+cd zsh-5.0.2
+./configure &amp;&amp; make &amp;&amp; make install
+# Config zsh
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/c2aa3395f050a273eaabd1ca6bc622af70864ec5/.zshrc &gt; ~/.zshrc
+</code></pre>
+
+<h2>Install Ruby</h2>
+
+<h3>1. Standard Rbenv Installation</h3>
+
+<pre><code>cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.zshenv
+echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.zshenv
+git clone git://github.com/sstephenson/ruby-build.git
+~/.rbenv/plugins/ruby-build
+source ~/.zshenv
+</code></pre>
+
+<h3>2. Install Ruby 1.9.3</h3>
+
+<pre><code>rbenv install 1.9.3-p194
+rbenv rehash
+# Fix by https://github.com/sstephenson/rbenv/issues/73
+rbenv global 1.9.3-p194
+</code></pre>
+
+<h2>Install JDK6</h2>
+
+<pre><code># Upload jdk-6u45-linux-x64-rpm.bin
+chmod u+x jdk-6u45-linux-x64-rpm.bin
+./jdk-6u45-linux-x64-rpm.bin
+</code></pre>
+
+<blockquote><p>Created at: [2013-06-29 12:45]</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Test Octopress & Markdown]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/06/29/test-octopress/"/>
+    <updated>2013-06-29T14:14:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/06/29/test-octopress</id>
+    <content type="html"><![CDATA[<h1>List</h1>
+
+<ul>
+<li>one
+
+<ol>
+<li>here</li>
+<li>there</li>
+<li>and there</li>
+</ol>
+</li>
+<li>two</li>
+<li>three</li>
+<li>four
+
+<ul>
+<li>here</li>
+<li>there</li>
+</ul>
+</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h1>Code</h1>
+
+<h2>with language</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;Great!&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>without line number</h2>
+
+<pre><code>configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+
+<hr />
+
+<h1>中文测试，Chinese Test</h1>
+
+<p>Some content, 一些内容</p>
+
+<blockquote><p>Block quote, 引用</p></blockquote>
+
+<h2>二级标题，subtitle</h2>
+
+<p>Some content, 一些内容</p>
+
+<blockquote><p>Block quote, 引用</p></blockquote>
+
+<h3>1. 三级标题, sub-sub-title</h3>
+
+<p>Some content, 一些内容</p>
+
+<ul>
+<li>一个列表 List 列表</li>
+<li>一个列表 List 列表
+
+<ul>
+<li>子列表 List 列表</li>
+<li>子列表 List 列表</li>
+<li>子列表 List 列表</li>
+</ul>
+</li>
+<li>一个列表 List 列表</li>
+<li>一个列表 List 列表</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
