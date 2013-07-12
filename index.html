@@ -144,7 +144,7 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 </span></code></pre></td></tr></table></div></figure>
 
 
-<blockquote></blockquote>
+<p></p>
 
 <ul>
 <li>In ~/.tmux.conf</li>
@@ -155,6 +155,59 @@ wget --no-check-certificate https://github.com/downloads/libevent/libevent/libev
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
 </span></code></pre></td></tr></table></div></figure>
 
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T14:01:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/11/all-about-emacs/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Installation</h2>
+
+<h3>Some requirements</h3>
+
+<p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
+ 一个趁手的Emacs.</p>
+
+<h3>Install Emacs</h3>
+
+<pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
+tar Jxf emacs-24.3.tar.xz
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no with-png=no --with-gif=no --with-tiff=no
+make &amp;&amp; make install
+</code></pre>
+
+<h2> FAQ </h2>
 </div>
   
   
@@ -227,17 +280,20 @@ git commit -m "COMMIT MESSAGE"
 git push origin source
 </code></pre>
 
-<h2>Restart an Instance</h2>
+<h2>Multiple machines</h2>
 
-<pre><code>git clone git://github.com/imathis/octopress.git octopress
-cd octopress
-mv SOME_PATH/cyan .themes/
-rake install['cyan']
+<blockquote><p><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></p></blockquote>
 
+<pre><code>git clone -b source git@github.com:TheWaWaR/thewawar.github.io.git
+
+cd thewawar.github.io
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+
+gem install bundler
+rbenv rehash
+bundle install
 rake setup_github_pages
-# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
-rm Gemfile.lock Rakefile _config.yml
-rm -r sass source
+# Input::
 </code></pre>
 </div>
   
@@ -362,44 +418,6 @@ password that after md5 processed).</p>
 <h3>1. How to import data or scheme from .sql file?</h3>
 
 <h3>2. How to export data or scheme from server?</h3>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-11T00:00:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/11/all-about-emacs/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>7e99c210617b25fa015864f2025d585bddc1625b</p>
 </div>
   
   
@@ -544,15 +562,15 @@ yum install wget bzip2 unzip zip tree
       </li>
     
       <li class="post">
+        <a href="/blog/2013/07/11/all-about-emacs/">All about Emacs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/11/all-about-octopress/">All about Octopress</a>
       </li>
     
       <li class="post">
         <a href="/blog/2013/07/11/all-about-postgresql/">All about Postgresql</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a>
       </li>
     
       <li class="post">

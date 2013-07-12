@@ -128,17 +128,20 @@ git commit -m "COMMIT MESSAGE"
 git push origin source
 </code></pre>
 
-<h2>Restart an Instance</h2>
+<h2>Multiple machines</h2>
 
-<pre><code>git clone git://github.com/imathis/octopress.git octopress
-cd octopress
-mv SOME_PATH/cyan .themes/
-rake install['cyan']
+<blockquote><p><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></p></blockquote>
 
+<pre><code>git clone -b source git@github.com:TheWaWaR/thewawar.github.io.git
+
+cd thewawar.github.io
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+
+gem install bundler
+rbenv rehash
+bundle install
 rake setup_github_pages
-# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
-rm Gemfile.lock Rakefile _config.yml
-rm -r sass source
+# Input::
 </code></pre>
 </div>
 
@@ -186,7 +189,7 @@ rm -r sass source
         <a class="basic-alignment left" href="/blog/2013/07/11/all-about-postgresql/" title="Previous Post: All about Postgresql">&laquo; All about Postgresql</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/07/11/all-about-tmux/" title="Next Post: All about Tmux">All about Tmux &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/07/11/all-about-emacs/" title="Next Post: All about Emacs">All about Emacs &raquo;</a>
       
     </p>
   </footer>
@@ -211,15 +214,15 @@ rm -r sass source
       </li>
     
       <li class="post">
+        <a href="/blog/2013/07/11/all-about-emacs/">All about Emacs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/11/all-about-octopress/">All about Octopress</a>
       </li>
     
       <li class="post">
         <a href="/blog/2013/07/11/all-about-postgresql/">All about Postgresql</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a>
       </li>
     
       <li class="post">

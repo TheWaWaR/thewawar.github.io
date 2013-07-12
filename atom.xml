@@ -4,7 +4,7 @@
   <title><![CDATA[WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-12T13:19:29+08:00</updated>
+  <updated>2013-07-12T15:11:25+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -57,7 +57,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<blockquote></blockquote>
+<p></p>
 
 <ul>
 <li>In ~/.tmux.conf</li>
@@ -68,6 +68,30 @@
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
 </span></code></pre></td></tr></table></div></figure>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about Emacs]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs/"/>
+    <updated>2013-07-11T14:01:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<h3>Some requirements</h3>
+
+<p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
+ 一个趁手的Emacs.</p>
+
+<h3>Install Emacs</h3>
+
+<pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
+tar Jxf emacs-24.3.tar.xz
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no with-png=no --with-gif=no --with-tiff=no
+make &amp;&amp; make install
+</code></pre>
+
+<h2> FAQ </h2>
 ]]></content>
   </entry>
   
@@ -111,17 +135,20 @@ git commit -m "COMMIT MESSAGE"
 git push origin source
 </code></pre>
 
-<h2>Restart an Instance</h2>
+<h2>Multiple machines</h2>
 
-<pre><code>git clone git://github.com/imathis/octopress.git octopress
-cd octopress
-mv SOME_PATH/cyan .themes/
-rake install['cyan']
+<blockquote><p><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></p></blockquote>
 
+<pre><code>git clone -b source git@github.com:TheWaWaR/thewawar.github.io.git
+
+cd thewawar.github.io
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+
+gem install bundler
+rbenv rehash
+bundle install
 rake setup_github_pages
-# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
-rm Gemfile.lock Rakefile _config.yml
-rm -r sass source
+# Input::
 </code></pre>
 ]]></content>
   </entry>
@@ -217,15 +244,6 @@ password that after md5 processed).</p>
 <h3>1. How to import data or scheme from .sql file?</h3>
 
 <h3>2. How to export data or scheme from server?</h3>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[All About Emacs]]></title>
-    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs/"/>
-    <updated>2013-07-11T00:00:00+08:00</updated>
-    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs</id>
-    <content type="html"><![CDATA[<p>7e99c210617b25fa015864f2025d585bddc1625b</p>
 ]]></content>
   </entry>
   
@@ -329,6 +347,16 @@ rbenv global 1.9.3-p194
 <pre><code># Upload jdk-6u45-linux-x64-rpm.bin
 chmod u+x jdk-6u45-linux-x64-rpm.bin
 ./jdk-6u45-linux-x64-rpm.bin
+</code></pre>
+
+<h1> FAQ </h1>
+
+<h3>1. How to let dhclient(or other service) autostart ?</h3>
+
+<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for
+an IP address lease</a></p></blockquote>
+
+<pre><code>... [HOLD] ...
 </code></pre>
 
 <blockquote><p>Created at: [2013-06-29 12:45]</p></blockquote>
