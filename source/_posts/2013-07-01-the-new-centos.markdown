@@ -18,14 +18,24 @@ Initialization
 
     yum upgrade
     yum groupinstall "Development Tools"
-    yum install wget bzip2 unzip zip tree
+    yum install wget bzip2 unzip zip tree man 
     
+Time spend: [21:17-21:40] 25min, 400kb/s
+
+
 
 <!-- more -->
 
 
 Install base packages
 =====================
+
+From other articles
+-------------------
+### 1. Install tmux
+### 2. Install emacs
+### 3. Install postgresql
+
 
 Install Python2.7
 -----------------
@@ -47,6 +57,11 @@ Install Python2.7
     wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.3.1.tar.gz
     # Install them by the given order
 
+    # Edit *~/.pip/pip.conf* and add this:
+    [global]
+    index-url=http://pypi.v2ex.com/simple
+
+    pip install ipython virtualenv
 
 
 Configure Github
@@ -55,16 +70,6 @@ Configure Github
     cd ~/.ssh
     ssh-kengen
     # Copy *id_rsa.pub* to *SSH Keys* @github.com
-
-
-Install Goagent
---------------
-
-    curl -L https://github.com/goagent/goagent/archive/3.0.zip > goagent-3.0.zip
-    unzip goagent-3.0.zip
-    # Edit *proxy.ini* change *appid* to *weet-proxy*
-    python2.7 proxy.py
-
 
 
 Install Zsh
@@ -76,9 +81,10 @@ Install Zsh
     tar xf zsh-5.0.2-doc.tar.bz2
     cd zsh-5.0.2
     ./configure && make && make install
+    
     # Config zsh
     curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-    curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/c2aa3395f050a273eaabd1ca6bc622af70864ec5/.zshrc > ~/.zshrc
+    curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/87a8f1bddec42d94f93e2d851e39ad6cf4e0ef48/.zshrc > ~/.zshrc
 
 
   
@@ -90,8 +96,7 @@ Install Ruby
     git clone git://github.com/sstephenson/rbenv.git .rbenv
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshenv
     echo 'eval "$(rbenv init -)"' >> ~/.zshenv
-    git clone git://github.com/sstephenson/ruby-build.git
-    ~/.rbenv/plugins/ruby-build
+    git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
     source ~/.zshenv
 
     

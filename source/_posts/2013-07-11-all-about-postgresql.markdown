@@ -11,12 +11,18 @@ Installation
 ------------
 >  [Install Postgresql 9.1 server on CentOS 6](https://gist.github.com/bvajda/1296795)
 
+    rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
+    yum install postgresql91-server.x86_64 postgresql91-devel.x86_64
+    
+    
+
 ### Additional (after install postgresql 9.1)
 
 ``` bash
     service postgresql-9.1 initdb
+    
+    # You'd better to edit ~/.zshrc
     export PATH=$PATH:/usr/pgsql-9.1/bin     # For install pgcopy2
-    yum install postgresql91-devel
 ```
 
 
@@ -47,7 +53,7 @@ Add user
     
     CREATE DATABASE jerry;
     GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
-    \q;
+    \q
 ```
 
 
@@ -68,8 +74,11 @@ password that after md5 processed).
  `localhost` to `*` so you can connect postgresql from remote host.
 
 
-Common Helpers 
---------------
+ FAQ 
+=====
+### 1. How to import(or export) data or scheme from .sql file?
 
-### 1. How to import data or scheme from .sql file?
-### 2. How to export data or scheme from server?
+    psql -U userName dbName < DATA_OR_SCHEME.sql
+    
+    pg_dump -U userName dbname > output.sql
+
