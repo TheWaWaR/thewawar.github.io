@@ -64,6 +64,19 @@ Install Python2.7
     pip install ipython virtualenv
 
 
+
+Update Git [1.7.1 ==> 1.8]
+--------------------------
+
+    yum remove git
+    yum install perl-CPAN
+    
+    wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+    tar -zxvf git-1.8.3.2.tar.gz
+    cd git-1.8.3.2
+    ./configure && make && make install
+
+    
 Configure Github
 ----------------
 

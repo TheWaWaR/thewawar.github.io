@@ -40,12 +40,20 @@ Oh! The features!
 > [zenburn on GitHub](https://github.com/bbatsov/zenburn-emacs)
 ### . Dictionary : [youdao, sdcv]
 ### . Version control : [magit]
+Already the latest version[1.2.0]. Use `e` in magit mode to use the
+*magic* `ediff` XD.
+
 ### . Input method : [eim]
 ### . Markup language : [markdown, rst]
 ### . Python support
 + highlight-indentation
 + pyflakes
 + jedi
+
+### . Database access
++ postgresql
++ mysql
++ sqlite
 
 ### . Global varibles : []
 ### . Little modes:
