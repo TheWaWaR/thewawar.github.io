@@ -4,7 +4,7 @@
   <title><![CDATA[WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-13T14:04:13+08:00</updated>
+  <updated>2013-07-13T14:22:44+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -64,7 +64,7 @@
 <p></p>
 
 <ul>
-<li><p>In ~/.tmux.conf (DO <strong>DOT</strong> edit this file directly)</p>
+<li><p>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</p>
 
 <p>  set-option -g default-shell $TMUX_SHELL</p></li>
 </ul>
@@ -222,6 +222,10 @@ rbenv rehash
 bundle install
 rake setup_github_pages
 # Input:: git@github.com:TheWaWaR/thewawar.github.io.git
+
+# ** Maybe alse need:
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+rake gen_deploy
 </code></pre>
 ]]></content>
   </entry>

@@ -152,7 +152,7 @@ yum install ncurses-devel wget --no-check-certificate https://github.com/downloa
 <p></p>
 
 <ul>
-<li><p>In ~/.tmux.conf (DO <strong>DOT</strong> edit this file directly)</p>
+<li><p>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</p>
 
 <p>  set-option -g default-shell $TMUX_SHELL</p></li>
 </ul>
@@ -368,6 +368,10 @@ rbenv rehash
 bundle install
 rake setup_github_pages
 # Input:: git@github.com:TheWaWaR/thewawar.github.io.git
+
+# ** Maybe alse need:
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+rake gen_deploy
 </code></pre>
 </div>
   
