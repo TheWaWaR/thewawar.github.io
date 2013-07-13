@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-13T00:22:51+08:00</updated>
+  <updated>2013-07-13T14:04:13+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -104,9 +104,14 @@ C-u 0 M-x byte-recompile-directory
 
 <h3>. Color theme : [zenburn]</h3>
 
+<blockquote><p><a href="https://github.com/bbatsov/zenburn-emacs">zenburn on GitHub</a></p>
+
 <h3>. Dictionary : [youdao, sdcv]</h3>
 
 <h3>. Version control : [magit]</h3>
+
+<p>Already the latest version[1.2.0]. Use <code>e</code> in magit mode to use the
+<em>magic</em> <code>ediff</code> XD.</p></blockquote>
 
 <h3>. Input method : [eim]</h3>
 
@@ -118,6 +123,15 @@ C-u 0 M-x byte-recompile-directory
 <li>highlight-indentation</li>
 <li>pyflakes</li>
 <li>jedi</li>
+</ul>
+
+
+<h3>. Database access</h3>
+
+<ul>
+<li>postgresql</li>
+<li>mysql</li>
+<li>sqlite</li>
 </ul>
 
 
@@ -355,6 +369,17 @@ wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.
 index-url=http://pypi.v2ex.com/simple
 
 pip install ipython virtualenv
+</code></pre>
+
+<h2>Update Git [1.7.1 ==> 1.8]</h2>
+
+<pre><code>yum remove git
+yum install perl-CPAN
+
+wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+tar -zxvf git-1.8.3.2.tar.gz
+cd git-1.8.3.2
+./configure &amp;&amp; make &amp;&amp; make install
 </code></pre>
 
 <h2>Configure Github</h2>

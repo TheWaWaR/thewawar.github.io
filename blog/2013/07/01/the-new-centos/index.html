@@ -149,6 +149,17 @@ index-url=http://pypi.v2ex.com/simple
 pip install ipython virtualenv
 </code></pre>
 
+<h2>Update Git [1.7.1 ==> 1.8]</h2>
+
+<pre><code>yum remove git
+yum install perl-CPAN
+
+wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+tar -zxvf git-1.8.3.2.tar.gz
+cd git-1.8.3.2
+./configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+
 <h2>Configure Github</h2>
 
 <pre><code>cd ~/.ssh
