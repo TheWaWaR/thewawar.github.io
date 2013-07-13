@@ -37,6 +37,7 @@ Oh! The features!
 ### . auto-complete
 ### . yasnippet
 ### . Color theme : [zenburn]
+> [zenburn on GitHub](https://github.com/bbatsov/zenburn-emacs)
 ### . Dictionary : [youdao, sdcv]
 ### . Version control : [magit]
 ### . Input method : [eim]
