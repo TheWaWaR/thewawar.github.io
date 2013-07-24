@@ -58,4 +58,8 @@ Multiple machines
     bundle install
     rake setup_github_pages
     # Input:: git@github.com:TheWaWaR/thewawar.github.io.git
+
+    # ** Maybe alse need:
+    git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+    rake gen_deploy
     

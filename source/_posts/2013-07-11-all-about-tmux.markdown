@@ -35,7 +35,9 @@ Configure Tmux & Bash & Zsh
     alias tfg='tmux attach'
 ``` 
 
-- In ~/.tmux.conf (DO **DOT** edit this file directly)
-
+- In ~/.tmux.conf (DO **NOT** edit this file directly)
+```
     set-option -g default-shell $TMUX_SHELL
+```
 
+    

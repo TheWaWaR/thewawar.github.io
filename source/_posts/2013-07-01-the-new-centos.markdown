@@ -18,7 +18,7 @@ Initialization
 
     yum upgrade
     yum groupinstall "Development Tools"
-    yum install wget bzip2 unzip zip tree man 
+    yum install wget bzip2 unzip zip man 
     
 Time spend: [21:17-21:40] 25min, 400kb/s
 
@@ -35,6 +35,7 @@ From other articles
 ### 1. Install tmux
 ### 2. Install emacs
 ### 3. Install postgresql
+### 4. Update Git & Configure GitHub
 
 
 Install Python2.7
@@ -61,30 +62,10 @@ Install Python2.7
     [global]
     index-url=http://pypi.v2ex.com/simple
 
-    pip install ipython virtualenv
+    pip install ipython virtualenv pyflakes
 
-
-
-Update Git [1.7.1 ==> 1.8]
---------------------------
-
-    yum remove git
-    yum install perl-CPAN
-    
-    wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
-    tar -zxvf git-1.8.3.2.tar.gz
-    cd git-1.8.3.2
-    ./configure && make && make install
 
     
-Configure Github
-----------------
-
-    cd ~/.ssh
-    ssh-kengen
-    # Copy *id_rsa.pub* to *SSH Keys* @github.com
-
-
 Install Zsh
 -----------
 
@@ -129,15 +110,40 @@ Install JDK6
     ./jdk-6u45-linux-x64-rpm.bin
 
 
+    
+Configure Dropbox
+-----------------
+> [Install dropbox on your Linux Server](https://www.dropbox.com/install?os=lnx)
+
+> [Using Dropbox from command line on your Linux Server](http://www.techpage3.com/2013/01/using-dropbox-from-command-line-on-your.html)
+
+    cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+    ~/.dropbox-dist/dropboxd &
+    
+
  FAQ 
 =====
 
 ### 1. How to let dhclient(or other service) autostart ?
-> [Configure Linux DHCP client ( dhclient ) to persistently look for
-an IP address lease](http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/)
+> [Configure Linux DHCP client ( dhclient ) to persistently look for an IP address lease](http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/)
 
     ... [HOLD] ...
     
+### 2. tree 乱码
 
+    yum remove tree
+    wget http://mama.indstate.edu/users/ice/tree/src/tree-1.6.0.tgz
+    tar zxvf tree-1.6.0.tgz
+    make && make install    
+    
+
+### 3. Goagent
+
+    curl -L https://github.com/goagent/goagent/archive/3.0.zip > goagent-3.0.zip
+    unzip goagent-3.0.zip
+    # Edit *proxy.ini* change *appid* to *weet-proxy*
+    python2.7 proxy.py
+
+    
 > Created at: [2013-06-29 12:45]
   
