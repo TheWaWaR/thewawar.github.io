@@ -4,7 +4,7 @@
   <title><![CDATA[WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-13T14:22:44+08:00</updated>
+  <updated>2013-07-24T14:28:05+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -12,6 +12,99 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A little WebGL Project]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/17/a-little-webgl-project/"/>
+    <updated>2013-07-17T17:09:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/17/a-little-webgl-project</id>
+    <content type="html"><![CDATA[<h1>Steps</h1>
+
+<h3>. Put some [cube]s in the right order right place</h3>
+
+<ul>
+<li>DONE:: Put some example cubes</li>
+<li>Put cubes by locations
+
+<h3>. Make cube [dragable]</h3></li>
+<li>TODO::
+
+<h3>. Select a cute and [show] it&rsquo;s infomation</h3>
+
+<h3>. [Search] for cube by location</h3>
+
+<h3>. Automatic [move] a cube form one place to another</h3></li>
+</ul>
+
+
+<h1>Notes</h1>
+
+<h4>. Cube&rsquo;s information</h4>
+
+<ul>
+<li>position</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about JavaScript]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/17/all-about-javascript/"/>
+    <updated>2013-07-17T17:08:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/17/all-about-javascript</id>
+    <content type="html"><![CDATA[<h1> FAQ</h1>
+
+<h3>1. How to sleep a while?</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about Git]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/16/all-about-git/"/>
+    <updated>2013-07-16T11:42:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/16/all-about-git</id>
+    <content type="html"><![CDATA[<h2>Update Git [1.7.1 ==> 1.8]</h2>
+
+<pre><code>yum remove git
+yum install perl-CPAN
+
+wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+tar -zxvf git-1.8.3.2.tar.gz
+cd git-1.8.3.2
+./configure &amp;&amp; make &amp;&amp; make install
+
+# Install man pages
+tar xzv -C /usr/local/share/man -f git-manpages-1.8.3.2.tar.gz
+</code></pre>
+
+<h2>Configure GitHub</h2>
+
+<pre><code>cd ~/.ssh
+ssh-kengen
+# Copy *id_rsa.pub* to *SSH Keys* @github.com
+</code></pre>
+
+<h2> FAQ</h2>
+
+<h3>1. Checkout/Push a remote branch</h3>
+
+<blockquote><p><a href="http://stackoverflow.com/questions/1519006/git-how-to-create-remote-branch">Git how to create remote branch</a></p></blockquote>
+
+<pre><code># Checkout
+git fetch 
+git checkout -b origin origin/learn
+
+# Push
+git push --set-upstream origin learn
+</code></pre>
+
+<h3>2. Checkout a branch by tag</h3>
+
+<pre><code>git checkout -b  [NEW-BRANCH-NAME]  [TAG-NAME]
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[All about Tmux]]></title>
@@ -64,10 +157,15 @@
 <p></p>
 
 <ul>
-<li><p>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</p>
-
-<p>  set-option -g default-shell $TMUX_SHELL</p></li>
+<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</li>
 </ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 ]]></content>
   </entry>
@@ -350,7 +448,7 @@ pg_dump -U userName dbname &gt; output.sql
 
 <pre><code>yum upgrade
 yum groupinstall "Development Tools"
-yum install wget bzip2 unzip zip tree man 
+yum install wget bzip2 unzip zip man 
 </code></pre>
 
 <p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
@@ -367,6 +465,8 @@ yum install wget bzip2 unzip zip tree man
 <h3>2. Install emacs</h3>
 
 <h3>3. Install postgresql</h3>
+
+<h3>4. Update Git &amp; Configure GitHub</h3>
 
 <h2>Install Python2.7</h2>
 
@@ -392,25 +492,7 @@ wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.
 [global]
 index-url=http://pypi.v2ex.com/simple
 
-pip install ipython virtualenv
-</code></pre>
-
-<h2>Update Git [1.7.1 ==> 1.8]</h2>
-
-<pre><code>yum remove git
-yum install perl-CPAN
-
-wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
-tar -zxvf git-1.8.3.2.tar.gz
-cd git-1.8.3.2
-./configure &amp;&amp; make &amp;&amp; make install
-</code></pre>
-
-<h2>Configure Github</h2>
-
-<pre><code>cd ~/.ssh
-ssh-kengen
-# Copy *id_rsa.pub* to *SSH Keys* @github.com
+pip install ipython virtualenv pyflakes
 </code></pre>
 
 <h2>Install Zsh</h2>
@@ -454,14 +536,39 @@ chmod u+x jdk-6u45-linux-x64-rpm.bin
 ./jdk-6u45-linux-x64-rpm.bin
 </code></pre>
 
+<h2>Configure Dropbox</h2>
+
+<blockquote><p><a href="https://www.dropbox.com/install?os=lnx">Install dropbox on your Linux Server</a></p>
+
+<p><a href="http://www.techpage3.com/2013/01/using-dropbox-from-command-line-on-your.html">Using Dropbox from command line on your Linux Server</a></p></blockquote>
+
+<pre><code>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd &amp;
+</code></pre>
+
 <h1> FAQ </h1>
 
 <h3>1. How to let dhclient(or other service) autostart ?</h3>
 
-<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for
-an IP address lease</a></p></blockquote>
+<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for an IP address lease</a></p></blockquote>
 
 <pre><code>... [HOLD] ...
+</code></pre>
+
+<h3>2. tree 乱码</h3>
+
+<pre><code>yum remove tree
+wget http://mama.indstate.edu/users/ice/tree/src/tree-1.6.0.tgz
+tar zxvf tree-1.6.0.tgz
+make &amp;&amp; make install    
+</code></pre>
+
+<h3>3. Goagent</h3>
+
+<pre><code>curl -L https://github.com/goagent/goagent/archive/3.0.zip &gt; goagent-3.0.zip
+unzip goagent-3.0.zip
+# Edit *proxy.ini* change *appid* to *weet-proxy*
+python2.7 proxy.py
 </code></pre>
 
 <blockquote><p>Created at: [2013-06-29 12:45]</p></blockquote>

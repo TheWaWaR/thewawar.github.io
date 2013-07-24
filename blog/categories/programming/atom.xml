@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-13T14:22:44+08:00</updated>
+  <updated>2013-07-24T14:28:05+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -54,9 +54,10 @@ alias tfg='tmux attach'
 <p>```</p>
 
 <ul>
-<li><p>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</p>
-
-<p>  set-option -g default-shell $TMUX_SHELL</p></li>
+<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)
+<code>
+  set-option -g default-shell $TMUX_SHELL
+</code></li>
 </ul>
 
 ]]></content>
@@ -330,7 +331,7 @@ pg_dump -U userName dbname &gt; output.sql
 
 <pre><code>yum upgrade
 yum groupinstall "Development Tools"
-yum install wget bzip2 unzip zip tree man 
+yum install wget bzip2 unzip zip man 
 </code></pre>
 
 <p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
@@ -347,6 +348,8 @@ yum install wget bzip2 unzip zip tree man
 <h3>2. Install emacs</h3>
 
 <h3>3. Install postgresql</h3>
+
+<h3>4. Update Git &amp; Configure GitHub</h3>
 
 <h2>Install Python2.7</h2>
 
@@ -372,25 +375,7 @@ wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.
 [global]
 index-url=http://pypi.v2ex.com/simple
 
-pip install ipython virtualenv
-</code></pre>
-
-<h2>Update Git [1.7.1 ==> 1.8]</h2>
-
-<pre><code>yum remove git
-yum install perl-CPAN
-
-wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
-tar -zxvf git-1.8.3.2.tar.gz
-cd git-1.8.3.2
-./configure &amp;&amp; make &amp;&amp; make install
-</code></pre>
-
-<h2>Configure Github</h2>
-
-<pre><code>cd ~/.ssh
-ssh-kengen
-# Copy *id_rsa.pub* to *SSH Keys* @github.com
+pip install ipython virtualenv pyflakes
 </code></pre>
 
 <h2>Install Zsh</h2>
@@ -434,14 +419,39 @@ chmod u+x jdk-6u45-linux-x64-rpm.bin
 ./jdk-6u45-linux-x64-rpm.bin
 </code></pre>
 
+<h2>Configure Dropbox</h2>
+
+<blockquote><p><a href="https://www.dropbox.com/install?os=lnx">Install dropbox on your Linux Server</a></p>
+
+<p><a href="http://www.techpage3.com/2013/01/using-dropbox-from-command-line-on-your.html">Using Dropbox from command line on your Linux Server</a></p></blockquote>
+
+<pre><code>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd &amp;
+</code></pre>
+
 <h1> FAQ </h1>
 
 <h3>1. How to let dhclient(or other service) autostart ?</h3>
 
-<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for
-an IP address lease</a></p></blockquote>
+<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for an IP address lease</a></p></blockquote>
 
 <pre><code>... [HOLD] ...
+</code></pre>
+
+<h3>2. tree 乱码</h3>
+
+<pre><code>yum remove tree
+wget http://mama.indstate.edu/users/ice/tree/src/tree-1.6.0.tgz
+tar zxvf tree-1.6.0.tgz
+make &amp;&amp; make install    
+</code></pre>
+
+<h3>3. Goagent</h3>
+
+<pre><code>curl -L https://github.com/goagent/goagent/archive/3.0.zip &gt; goagent-3.0.zip
+unzip goagent-3.0.zip
+# Edit *proxy.ini* change *appid* to *weet-proxy*
+python2.7 proxy.py
 </code></pre>
 
 <blockquote><p>Created at: [2013-06-29 12:45]</p></blockquote>

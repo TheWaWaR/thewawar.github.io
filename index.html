@@ -9,18 +9,9 @@
   <meta name="author" content="weet">
 
   
-  <meta name="description" content="Installation 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-yum install ncurses-devel wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2. &hellip;">
+  <meta name="description" content="Steps . Put some [cube]s in the right order right place DONE:: Put some example cubes
+Put cubes by locations . Make cube [dragable]
+TODO:: . Select a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +66,186 @@ yum install ncurses-devel wget --no-check-certificate https://github.com/downloa
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/17/a-little-webgl-project/">A Little WebGL Project</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T17:09:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/17/a-little-webgl-project/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Steps</h1>
+
+<h3>. Put some [cube]s in the right order right place</h3>
+
+<ul>
+<li>DONE:: Put some example cubes</li>
+<li>Put cubes by locations
+
+<h3>. Make cube [dragable]</h3></li>
+<li>TODO::
+
+<h3>. Select a cute and [show] it&rsquo;s infomation</h3>
+
+<h3>. [Search] for cube by location</h3>
+
+<h3>. Automatic [move] a cube form one place to another</h3></li>
+</ul>
+
+
+<h1>Notes</h1>
+
+<h4>. Cube&rsquo;s information</h4>
+
+<ul>
+<li>position</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/17/all-about-javascript/">All About JavaScript</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T17:08:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/17/all-about-javascript/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1> FAQ</h1>
+
+<h3>1. How to sleep a while?</h3>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/16/all-about-git/">All About Git</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-16T11:42:00+08:00" pubdate data-updated="true">Jul 16<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/16/all-about-git/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Update Git [1.7.1 ==> 1.8]</h2>
+
+<pre><code>yum remove git
+yum install perl-CPAN
+
+wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+tar -zxvf git-1.8.3.2.tar.gz
+cd git-1.8.3.2
+./configure &amp;&amp; make &amp;&amp; make install
+
+# Install man pages
+tar xzv -C /usr/local/share/man -f git-manpages-1.8.3.2.tar.gz
+</code></pre>
+
+<h2>Configure GitHub</h2>
+
+<pre><code>cd ~/.ssh
+ssh-kengen
+# Copy *id_rsa.pub* to *SSH Keys* @github.com
+</code></pre>
+
+<h2> FAQ</h2>
+
+<h3>1. Checkout/Push a remote branch</h3>
+
+<blockquote><p><a href="http://stackoverflow.com/questions/1519006/git-how-to-create-remote-branch">Git how to create remote branch</a></p></blockquote>
+
+<pre><code># Checkout
+git fetch 
+git checkout -b origin origin/learn
+
+# Push
+git push --set-upstream origin learn
+</code></pre>
+
+<h3>2. Checkout a branch by tag</h3>
+
+<pre><code>git checkout -b  [NEW-BRANCH-NAME]  [TAG-NAME]
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -152,10 +323,15 @@ yum install ncurses-devel wget --no-check-certificate https://github.com/downloa
 <p></p>
 
 <ul>
-<li><p>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</p>
-
-<p>  set-option -g default-shell $TMUX_SHELL</p></li>
+<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</li>
 </ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
   
@@ -554,7 +730,7 @@ pg_dump -U userName dbname &gt; output.sql
 
 <pre><code>yum upgrade
 yum groupinstall "Development Tools"
-yum install wget bzip2 unzip zip tree man 
+yum install wget bzip2 unzip zip man 
 </code></pre>
 
 <p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
@@ -647,23 +823,23 @@ yum install wget bzip2 unzip zip tree man
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/17/a-little-webgl-project/">A little WebGL Project</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/17/all-about-javascript/">All about JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/16/all-about-git/">All about Git</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/11/all-about-tmux/">All about Tmux</a>
       </li>
     
       <li class="post">
         <a href="/blog/2013/07/11/all-about-emacs/">All about Emacs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/11/all-about-octopress/">All about Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/11/all-about-postgresql/">All about Postgresql</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/01/the-new-centos/">The new CentOS</a>
       </li>
     
   </ul>
