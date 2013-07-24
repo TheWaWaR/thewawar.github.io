@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-24T14:28:05+08:00</updated>
+  <updated>2013-07-24T14:38:49+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -54,12 +54,16 @@ alias tfg='tmux attach'
 <p>```</p>
 
 <ul>
-<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)
-<code>
-  set-option -g default-shell $TMUX_SHELL
-</code></li>
+<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</li>
 </ul>
 
+
+<p>```</p>
+
+<pre><code>set-option -g default-shell $TMUX_SHELL
+</code></pre>
+
+<p>```</p>
 ]]></content>
   </entry>
   
