@@ -36,7 +36,8 @@ Configure Tmux & Bash & Zsh
 ``` 
 
 - In ~/.tmux.conf (DO **NOT** edit this file directly)
-```
+
+``` 
     set-option -g default-shell $TMUX_SHELL
 ```
 
