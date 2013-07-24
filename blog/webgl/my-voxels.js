@@ -333,6 +333,7 @@ function removeVoxel( coordinate ) {
    2. lockedDestinations
  */
 function moveVoxelByCoordinates( original, destination, callback ) {  // By coordinates
+  console.log( 'To be move: ', original, destination );
 
   if ( original.x == destination.x && original.z == destination.z ) {
     console.warn( 'Move ERROR: Can not move vertical!' );
@@ -693,6 +694,7 @@ function selectTestCoordinates( meshs ) {
   var p1 = mesh1.position;
   coordinate0 = positionToCoordinate( p0 );
   coordinate1 = positionToCoordinate( p1 );
+  coordinate1.y += 1; // Destination is the voxel above an exists top voxel.
 }
 
 
@@ -726,7 +728,7 @@ function updateTestCoordinatesGUI() {
   paramX1.setValue( coordinate1.x );
   
   paramY0.setValue( coordinate0.y );
-  paramY1.setValue( coordinate1.y + 1 );  // ! Attention !
+  paramY1.setValue( coordinate1.y );
   
   paramZ0.setValue( coordinate0.z );
   paramZ1.setValue( coordinate1.z );
@@ -745,7 +747,7 @@ function initGUI() {
       move: function() {
         moveVoxelByCoordinates( coordinate0,
                                { x: coordinate1.x,
-                                 y: coordinate1.y+1, // ! Attention !
+                                 y: coordinate1.y,
                                  z: coordinate1.z } );
       },
       exchange: exchangeCoordinate,
