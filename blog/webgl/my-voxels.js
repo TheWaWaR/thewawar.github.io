@@ -703,8 +703,9 @@ function exchangeCoordinate() {
   coordinate0.x = coordinate1.x;
   coordinate1.x = _x;
 
-  var _y = coordinate0.y;
-  coordinate0.y = coordinate1.y;
+  // Because: Destination is the voxel above an exists top voxel.
+  var _y = coordinate0.y + 1;
+  coordinate0.y = coordinate1.y - 1;
   coordinate1.y = _y;
   
   var _z = coordinate0.z;
