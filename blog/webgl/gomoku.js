@@ -138,9 +138,8 @@ function initMeshs() {
   // Cubes
   voxelGeometry = new THREE.SphereGeometry( ( cubeX-fixX )/2, 40, 20 );
   
-  brush = new THREE.Mesh( voxelGeometry,
-                          new THREE.MeshPhongMaterial( { color: brushColor,
-                                                         opacity: 0.5 } ) );
+  brush = new THREE.Mesh( new THREE.SphereGeometry( ( cubeX-fixX-2 )/2, 40, 20 ),
+                          new THREE.MeshPhongMaterial( { color: brushColor, opacity: 0.8 } ) );
   brush.coordinate = { x: 6, y: 1, z: 3 };
   var p = coordinateToPosition( brush.coordinate );
   brush.position.set( p.x, p.y, p.z );
@@ -230,9 +229,7 @@ function checkGomoku( tx, tz ) {
         
         idx = getVoxelIndexByCoordinate( allVoxels, coordinate );
         currColor = idx != null ? allVoxels[ idx ].material.color.getHex() : null;
-        
         // console.log( 'i, k, coordinate, currColor:', i, ' ( ', k, ' ) ', coordinate, currColor)
-
         if ( targetColor == currColor ) {
           dict[ k ].n += 1;
         } else {
@@ -299,6 +296,8 @@ function addVoxel( coordinate ) {
     ENDed = true;
     var winMsg = currColorIdx == 1 ? 'Green is the winner!' : 'Red is the winner!';
     alert('THE END :  ' + winMsg);
+    interact();
+    render();
   }
   
   return true;
@@ -471,12 +470,14 @@ function onDocumentMouseDown( event ) {
   
   if ( modeDict.add ) {
     addVoxel( brush.coordinate );
+    interact();
     render();
     return;
   }
 
   if ( modeDict.remove && hoveredVoxel != null ) {
     removeVoxel( hoveredVoxel.coordinate );
+    interact();
     render();
     return;
   }
