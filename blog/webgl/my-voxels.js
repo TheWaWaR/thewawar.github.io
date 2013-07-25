@@ -323,13 +323,13 @@ function addVoxel( coordinate ) {
 
   // Error handlers: Check if can be added.
   if ( topIdxBelow == null && coordinate.y != 1 ) {
-    console.warn( 'Add voxel ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
+    console.warn( 'Add ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
   }
   
   var idxLocked = findLockedDestination( coordinateBelow );
   if ( idxLocked != null ) {
-    console.warn( 'Add voxel ERROR: Voxel below locked as destination!', coordinate );
+    console.warn( 'Add ERROR: Voxel below locked as destination!', coordinate );
     return false;
   }
 
@@ -728,7 +728,7 @@ function onDocumentMouseDown( event ) {
     return;
   }
 
-  if ( modeDict.remove ) {
+  if ( modeDict.remove && hoveredVoxel != null ) {
     removeVoxel( hoveredVoxel.coordinate );
     render();
     return;
@@ -794,6 +794,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
+  render();
 }
 
 
@@ -951,4 +952,23 @@ function initGUI() {
   
   gui.open();
   // gui.close();
+}
+
+
+
+////////////////////////////// Utils //////////////////////////////
+function coordinateToPosition( coord ) {
+  var pos = new THREE.Vector3();
+  pos.x = cubeX * (coord.x + (coord.x>0 ? -0.5 : 0.5));
+  pos.y = cubeY * (coord.y-0.5);
+  pos.z = cubeZ * (coord.z + (coord.z>0 ? -0.5 : 0.5));
+  return pos;
+}
+
+function positionToCoordinate( pos ) {
+  var coord = {};
+  coord.x = Math.round( pos.x/cubeX + ( pos.x > 0 ? 0.5 : -0.5 ) );
+  coord.y = Math.round( pos.y/cubeY + 0.5 );
+  coord.z = Math.round( pos.z/cubeZ + ( pos.z > 0 ? 0.5 : -0.5 ) );
+  return coord;
 }
