@@ -4,8 +4,8 @@ var container, gui;
 var scene, camera, renderer ;
 var controls, projector;
 var colors = [ 0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030 ];
-var gridSize = 20;
-var cubeX = 30, cubeY=36, cubeZ = 80, fixY = 0;
+var gridSize = 40;
+var cubeX = 30, cubeY=36, cubeZ = 40, fixY = 0;
 var planeX = gridSize * cubeX, planeZ = gridSize * cubeZ, brushHideHeight = 4000;
 var cubeGeometry;
 
