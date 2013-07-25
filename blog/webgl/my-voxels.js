@@ -34,6 +34,13 @@ var moveOpacity = 0.75, removeOpacity = 0.3, selectedOpacity = 0.5, moveSelected
    =========
    . Hover 方块时显示方块的信息(比如坐标...)
    . 允许自行在空白的平面上添加方块
+
+
+   Tasks:
+   ======
+   1. TODO:: 完善文档
+   2. 路径搜索算法，考虑方块的势能，以及翻箱次数
+   3. 解决无法在侧面添加方块的问题
    
  */
 
@@ -129,18 +136,18 @@ function initMeshs() {
   scene.add(brush);
 
   var sx = 2, sz = 2, sy = 6;
-  for ( var i=-sx; i<=sx; i++) {
-    for (var j=-sz; j<=sz; j++) {
+  for ( var i=-sx; i<sx; i++) {
+    for (var j=-sz; j<sz; j++) {
+      
       var MK = parseInt(Math.random() * sy / 2 + sy / 2);
-      for ( var k=1; k<=MK; k++) {
-        if ( i != 0 && j != 0 ) {
-          var voxel = createVoxel( { x: i, y: k, z: j } );
-          scene.add(voxel);
-          
-          allVoxels.push(voxel);
-          if ( k == MK ) {
-            topVoxels.push(voxel);
-          }
+      for ( var k=0; k<MK; k++) {
+        
+        var voxel = createVoxel( { x: i, y: k, z: j } );
+        scene.add(voxel);
+        allVoxels.push(voxel);
+
+        if ( k == MK-1 ) {
+          topVoxels.push(voxel);
         }
       }
     }
@@ -322,7 +329,7 @@ function addVoxel( coordinate ) {
   var topIdxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
 
   // Error handlers: Check if can be added.
-  if ( topIdxBelow == null && coordinate.y != 1 ) {
+  if ( topIdxBelow == null && coordinate.y != 0 ) {
     console.warn( 'Add ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
   }
@@ -335,7 +342,7 @@ function addVoxel( coordinate ) {
 
 
   // Adding...
-  if ( coordinate.y != 1 ) {
+  if ( coordinate.y != 0 ) {
     console.log( 'Remove from TOP:', topVoxels[ topIdxBelow ].coordinate);
     topVoxels[ topIdxBelow ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
     topVoxels.splice( topIdxBelow, 1 );
@@ -377,7 +384,7 @@ function removeVoxel( coordinate ) {
   
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
   var allIdxBelow = getVoxelIndexByCoordinate( allVoxels, coordinateBelow );
-  if ( allIdxBelow == null && coordinate.y != 1 ) {
+  if ( allIdxBelow == null && coordinate.y != 0 ) {
     console.error( 'Remove ERROR: The voxel below is incorrect, something must be wrong!', coordinate );
     return false;
   }
@@ -387,7 +394,7 @@ function removeVoxel( coordinate ) {
   
   // This step's order is very important, 因为当前得到索引会因数组的变动而失效。
   var voxelBelow;
-  if ( coordinate.y != 1 ) { 
+  if ( coordinate.y != 0 ) { 
     voxelBelow = allVoxels[ allIdxBelow ];
   }
   
@@ -397,7 +404,7 @@ function removeVoxel( coordinate ) {
   topVoxels.splice( topIdx, 1 );
   scene.remove( voxel );
 
-  if ( coordinate.y != 1 ) { // If target voxel not on the plane.
+  if ( coordinate.y != 0 ) { // If target voxel not on the plane.
     console.log( 'Add to TOP:', voxelBelow.coordinate );
     topVoxels.push( voxelBelow );
   }
@@ -441,7 +448,7 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
     return false;
   }
 
-  if ( topIdxUnderDest == null && destination.y != 1 ) {
+  if ( topIdxUnderDest == null && destination.y != 0 ) {
     console.warn( 'Move ERROR: Destination not above a top voxel or plane!', origin, destination );
     return false;
   }
@@ -464,7 +471,7 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   var voxelOrigin = topVoxels[ topIdxOrigin ];
 
   // 1. Add voxel which under orign to `topVoxels` if it's not `plane`
-  if ( origin.y != 1 ) {
+  if ( origin.y != 0 ) {
     var coordinateUnderOrigin = { x: origin.x , y: origin.y-1 , z: origin.z }
     var allIdxUnderOrigin = getVoxelIndexByCoordinate( allVoxels, coordinateUnderOrigin );
     
@@ -473,7 +480,7 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   }
   
   // 2. Remove voxel which under destination from `topVoxels` if it's not `plane`
-  if ( destination.y != 1 ) {
+  if ( destination.y != 0 ) {
     console.log( 'Remove from TOP:', topVoxels[ topIdxUnderDest ].coordinate);
     topVoxels[ topIdxUnderDest ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
     topVoxels.splice( topIdxUnderDest, 1 );
@@ -803,7 +810,13 @@ function onWindowResize() {
 ////////////////////////////////////////////////////////////////////////////////
 
 function selectTestCoordinates( voxels ) {
-  var i0 = parseInt(Math.random()*100) % voxels.length, i1 = parseInt(Math.random()*100) % voxels.length;
+  if ( voxels.length == 0 ) {
+    console.warn( 'No top voxels ???' );
+    return false;
+  }
+
+  var i0 = parseInt(Math.random()*100) % voxels.length;
+  var i1 = parseInt(Math.random()*100) % voxels.length;
   var voxel0 = voxels[ i0 ], voxel1 = voxels[ i1 ];
   
   for ( var i = 0; i < 128; i++ ) {
@@ -959,16 +972,16 @@ function initGUI() {
 ////////////////////////////// Utils //////////////////////////////
 function coordinateToPosition( coord ) {
   var pos = new THREE.Vector3();
-  pos.x = cubeX * (coord.x + (coord.x>0 ? -0.5 : 0.5));
-  pos.y = cubeY * (coord.y-0.5);
-  pos.z = cubeZ * (coord.z + (coord.z>0 ? -0.5 : 0.5));
+  pos.x = ( coord.x + 0.5 ) * cubeX; //cubeX * (coord.x + (coord.x>0 ? -0.5 : 0.5));
+  pos.y = ( coord.y + 0.5) * cubeY;
+  pos.z = ( coord.z + 0.5 ) * cubeZ; //cubeZ * (coord.z + (coord.z>0 ? -0.5 : 0.5));
   return pos;
 }
 
 function positionToCoordinate( pos ) {
   var coord = {};
-  coord.x = Math.round( pos.x/cubeX + ( pos.x > 0 ? 0.5 : -0.5 ) );
-  coord.y = Math.round( pos.y/cubeY + 0.5 );
-  coord.z = Math.round( pos.z/cubeZ + ( pos.z > 0 ? 0.5 : -0.5 ) );
+  coord.x = Math.round( pos.x/cubeX - 0.5 ); // Math.round( pos.x/cubeX + ( pos.x > 0 ? 0.5 : -0.5 ) );
+  coord.y = Math.round( pos.y/cubeY - 0.5 );
+  coord.z = Math.round( pos.z/cubeZ - 0.5 ); // Math.round( pos.z/cubeZ + ( pos.z > 0 ? 0.5 : -0.5 ) );
   return coord;
 }
