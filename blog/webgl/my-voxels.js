@@ -21,7 +21,7 @@ var modeDict = {
 };
 // var isShiftDown = false, isControlDown = false, isAltDown = false;
 var rayCaster, mouse3D, hoveredVoxel = null, selectedVoxel = null, destinationVoxel = null;
-var moveOpacity = 0.75, removeOpacity = 0.3; selectedOpacity = 0.5, moveSelectedOpacity = 0.3;
+var moveOpacity = 0.75, removeOpacity = 0.3, selectedOpacity = 0.5, moveSelectedOpacity = 0.3, topOpacity = 0.82;
 
 /** <---- @weet [2013-07-21 11:39] ---->
    
@@ -319,25 +319,26 @@ function addVoxel( coordinate ) {
   console.log('To be added:', coordinate);
   
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
-  var idxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
+  var topIdxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
 
   // Error handlers: Check if can be added.
-  if ( idxBelow == null && coordinate.y != 1 ) {
-    console.warn( 'Add voxel ERROR: Voxel can only be added above a top voxel or plane!' );
+  if ( topIdxBelow == null && coordinate.y != 1 ) {
+    console.warn( 'Add voxel ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
   }
   
   var idxLocked = findLockedDestination( coordinateBelow );
   if ( idxLocked != null ) {
-    console.warn( 'Add voxel ERROR: Voxel below locked as destination!', coordinateBelow );
+    console.warn( 'Add voxel ERROR: Voxel below locked as destination!', coordinate );
     return false;
   }
 
 
   // Adding...
   if ( coordinate.y != 1 ) {
-    console.log( 'Remove from TOP:', topVoxels[ idxBelow ].coordinate);
-    topVoxels.splice( idxBelow, 1 );
+    console.log( 'Remove from TOP:', topVoxels[ topIdxBelow ].coordinate);
+    topVoxels[ topIdxBelow ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
+    topVoxels.splice( topIdxBelow, 1 );
   }
 
   var voxel = createVoxel( coordinate );
@@ -348,7 +349,6 @@ function addVoxel( coordinate ) {
   console.log( 'Add to TOP:', voxel.coordinate);
   console.log( 'Voxel added(to: [SCENE, TOP, ALL]):', voxel.coordinate);
 
-  validateTopVoxels();
   return true;
 }
 
@@ -363,40 +363,47 @@ function removeVoxel( coordinate ) {
   console.log('To be removed:', coordinate);
   
   // Error handlers: Check if can be removed.
-  var idxTop = getVoxelIndexByCoordinate( topVoxels, coordinate );
-  if ( idxTop == null ) {
+  var topIdx = getVoxelIndexByCoordinate( topVoxels, coordinate );
+  if ( topIdx == null ) {
     console.warn( 'Remove ERROR: Can not remove voxel not on the top!', coordinate );
     return false;
   }
   
   var idxLocked = findLockedDestination( coordinate );
   if ( idxLocked != null ) {
-    console.warn( 'Remove ERROR: Voxel locked as destination!' );
+    console.warn( 'Remove ERROR: Voxel locked as destination!', coordinate );
     return false;
   }
   
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
-  var idxBelow = getVoxelIndexByCoordinate( allVoxels, coordinateBelow );
-  if ( idxBelow == null && coordinate.y != 1 ) {
-    console.error( 'Remove ERROR: The voxel below is incorrect, something must be wrong!' );
+  var allIdxBelow = getVoxelIndexByCoordinate( allVoxels, coordinateBelow );
+  if ( allIdxBelow == null && coordinate.y != 1 ) {
+    console.error( 'Remove ERROR: The voxel below is incorrect, something must be wrong!', coordinate );
     return false;
   }
 
   
-  // Removing...
-  var idxAll = getVoxelIndexByCoordinate( allVoxels, coordinate );
-  var voxel = topVoxels[ idxTop ];
-  allVoxels.splice( idxAll, 1 );
-  topVoxels.splice( idxTop, 1 );
+  //  >>> Removing... <<<
+  
+  // This step's order is very important, 因为当前得到索引会因数组的变动而失效。
+  var voxelBelow;
+  if ( coordinate.y != 1 ) { 
+    voxelBelow = allVoxels[ allIdxBelow ];
+  }
+  
+  var allIdx = getVoxelIndexByCoordinate( allVoxels, coordinate );
+  var voxel = topVoxels[ topIdx ];
+  allVoxels.splice( allIdx, 1 );
+  topVoxels.splice( topIdx, 1 );
   scene.remove( voxel );
 
   if ( coordinate.y != 1 ) { // If target voxel not on the plane.
-    console.log( 'Add to TOP:', allVoxels[ idxBelow ].coordinate );
-    topVoxels.push( allVoxels[ idxBelow ] );
+    console.log( 'Add to TOP:', voxelBelow.coordinate );
+    topVoxels.push( voxelBelow );
   }
 
   console.log( 'Voxel removed:', voxel.coordinate);
-  
+
   validateTopVoxels();
   return true;
 }
@@ -413,12 +420,12 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
 
   // Error handlers: Check if origin can move and the destination is valid.
   if ( origin.x == destination.x && origin.z == destination.z ) {
-    console.warn( 'Move ERROR: Can not move vertical!' );
+    console.warn( 'Move ERROR: Can not move vertical!', origin, destination );
     return false;
   }
   
   if ( findLockedDestination( destination ) != null ) {
-    console.warn( 'Move ERROR: Destination locked', destination, lockedDestinations );
+    console.warn( 'Move ERROR: Destination locked', origin, destination, lockedDestinations );
     return false;
   }
 
@@ -427,7 +434,7 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
                                                        y: destination.y-1,
                                                        z: destination.z } );
   if ( topIdxOrigin == null ) {
-    console.warn( 'Move ERROR: Origin not on the top!', origin);
+    console.warn( 'Move ERROR: Origin not on the top!', origin, destination );
     topVoxels.forEach( function(voxel) {
       console.log( voxel.coordinate );
     });
@@ -435,12 +442,12 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   }
 
   if ( topIdxUnderDest == null && destination.y != 1 ) {
-    console.warn( 'Move ERROR: Destination not above a top voxel or plane!' );
+    console.warn( 'Move ERROR: Destination not above a top voxel or plane!', origin, destination );
     return false;
   }
   
   if ( getVoxelIndexByCoordinate( allVoxels, destination ) != null ) {
-    console.warn( 'Move ERROR: Destination has a voxel!' );
+    console.warn( 'Move ERROR: Destination has a voxel!', origin, destination );
     return false;
   }
 
@@ -468,6 +475,7 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   // 2. Remove voxel which under destination from `topVoxels` if it's not `plane`
   if ( destination.y != 1 ) {
     console.log( 'Remove from TOP:', topVoxels[ topIdxUnderDest ].coordinate);
+    topVoxels[ topIdxUnderDest ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
     topVoxels.splice( topIdxUnderDest, 1 );
   }
 
@@ -563,6 +571,8 @@ function moveVoxel( target, positions, i, isForward, callback) {
 
 function render() {
   controls.update();
+
+  // Just set opacity
   if ( hoveredVoxel != null ){
     
     if ( modeDict.move ) {
@@ -580,6 +590,10 @@ function render() {
       selectedVoxel.material.opacity = selectedOpacity;
     }
   }
+
+  topVoxels.forEach( function( voxel ) {
+    voxel.material.color.setHex( colors[ 9 ] );
+  });
   renderer.render(scene, camera);
 }
 
@@ -639,6 +653,10 @@ function setMode( mode ) {
     } else {
       modeDict[ k ] = false;
     }
+  }
+  if ( mode != 'move' && mode != 'none' ) {
+    selectedVoxel = null;
+    render();
   }
 }
 
@@ -715,6 +733,15 @@ function onDocumentMouseDown( event ) {
     render();
     return;
   }
+
+  if ( modeDict.move && hoveredVoxel && selectedVoxel != hoveredVoxel ) {
+    if ( selectedVoxel ) {
+      selectedVoxel.material.opacity = 1;
+    }
+    selectedVoxel = hoveredVoxel;
+    render();
+    return;
+  }
   
   //console.log('down');
   if ( selectedVoxel != null ) {
@@ -724,12 +751,13 @@ function onDocumentMouseDown( event ) {
       selectedVoxel = null;
       
     } else if ( brush.position.y < brushHideHeight ) { // Beacuse brush is the destination
-      
+
       var successed = moveVoxelByCoordinates( selectedVoxel.coordinate,
-                                             brush.coordinate);
+                                              brush.coordinate);
       if ( successed ) {
         selectedVoxel = null; // Unset origin voxel.
       }
+      
     }
   } else if ( hoveredVoxel != null) { // Set origin voxel
     
