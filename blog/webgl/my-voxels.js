@@ -105,11 +105,14 @@ function init() {
   window.addEventListener( 'resize', onWindowResize, false );
 }
 
+function getColor( coordinate ) {
+  return colors[ ( coordinate.x + coordinate.y + coordinate.z + 73 )%7+1 ];
+}
 
 function createVoxel( coordinate, colorIdx ) {
-  var currColorIdx = colorIdx ? colorIdx : (coordinate.x+coordinate.y+coordinate.z+73)%7+1;
+  var color = colorIdx ? colors[ colorIdx ] : getColor( coordinate );
   var voxel = new THREE.Mesh( cubeGeometry,
-                              new THREE.MeshPhongMaterial( { color: colors[ currColorIdx ] } ) );
+                              new THREE.MeshPhongMaterial( { color: color } ) );
   voxel.coordinate = coordinate;
   var p = coordinateToPosition( voxel.coordinate );
   voxel.position.set( p.x, p.y, p.z );
@@ -318,11 +321,18 @@ function sortAllVoxels() {
 
 function addVoxel( coordinate ) {
   console.log('To be added:', coordinate);
+
+  
+  // >>> Error handlers: Check if can be added.
+  var allIdx = getVoxelIndexByCoordinate( allVoxels, coordinate );
+  if ( allIdx != null ) {
+    console.warn( 'Add ERROR: Target position already have a voxel!' );
+    return false;
+  }
   
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
   var topIdxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
-
-  // >>> Error handlers: Check if can be added.
+  
   if ( topIdxBelow == null && coordinate.y != 0 ) {
     console.warn( 'Add ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
@@ -337,8 +347,9 @@ function addVoxel( coordinate ) {
 
   // >>> Adding... <<<
   if ( coordinate.y != 0 ) {
-    console.log( 'Remove from TOP:', topVoxels[ topIdxBelow ].coordinate);
-    topVoxels[ topIdxBelow ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
+    var voxelBelow = topVoxels[ topIdxBelow ];
+    console.log( 'Remove from TOP:', voxelBelow.coordinate);
+    voxelBelow.material.color.setHex( getColor( voxelBelow.coordinate ) );
     topVoxels.splice( topIdxBelow, 1 );
   }
 
@@ -478,8 +489,9 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   
   // 2. Remove voxel which under destination from `topVoxels` if it's not `plane`
   if ( destination.y != 0 ) {
-    console.log( 'Remove from TOP:', topVoxels[ topIdxUnderDest ].coordinate);
-    topVoxels[ topIdxUnderDest ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
+    var voxelUnderDest = topVoxels[ topIdxUnderDest ];
+    console.log( 'Remove from TOP:', voxelUnderDest.coordinate);
+    voxelUnderDest.material.color.setHex( getColor( voxelUnderDest.coordinate ) );
     topVoxels.splice( topIdxUnderDest, 1 );
   }
 
@@ -505,13 +517,11 @@ function moveVoxelToCoordinate( target, destination, top, callback) {
   var coordB1 = { x: destination.x, y: top, z: destination.z };
   
   var coords = [ origin, coordA1, coordB1, destination ];
-  // console.log('coords:', coords);
   var positions = [];
   for ( var i = 0; i < coords.length; i++) {
     positions.push( coordinateToPosition(coords[i]) );
   }
   
-  // console.log('positions', positions);
   moveVoxel( target, positions, 1, true, callback);
 }
 
@@ -666,7 +676,6 @@ function setMode( mode ) {
 
 
 function onDocumentKeyDown( event ) {
-  console.log( event.keyCode );
   
   switch ( event.keyCode ) {
     
@@ -747,7 +756,6 @@ function onDocumentMouseDown( event ) {
     return;
   }
   
-  //console.log('down');
   if ( selectedVoxel != null ) {
     
     if ( selectedVoxel == hoveredVoxel ) {
@@ -773,12 +781,10 @@ function onDocumentMouseDown( event ) {
 
 
 function onDocumentMouseUp( event ) {
-  //console.log('up');
   render();
 }
 
 function onDocumentMouseMove( event ) {
-  //console.log('move');
   mouse3D = projector.unprojectVector( new THREE.Vector3(  event.clientX / renderer.domElement.width * 2 - 1,
                                                            - event.clientY / renderer.domElement.height * 2 + 1,
                                                            0.5),
@@ -790,7 +796,6 @@ function onDocumentMouseMove( event ) {
 }
 
 function onDocumentMouseWheel( event ) {
-  //console.log('wheel');
   render();
 }
 
