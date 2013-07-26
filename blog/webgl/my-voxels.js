@@ -7,7 +7,7 @@ var colors = [ 0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1
 var gridSize = 40;
 var cubeX = 30, cubeY=36, cubeZ = 40, fixY = 0;
 var planeX = gridSize * cubeX, planeZ = gridSize * cubeZ, brushHideHeight = 4000;
-var cubeGeometry;
+var cubeGeometry, lineMaterial, coordinateLineMaterialZ, coordinateLineMaterialX;
 
 var brush, allVoxels = [], topVoxels = [], lockedDestinations = [];
 var coordinate0 , coordinate1, coordinateMinY, coordinateMaxY;
@@ -119,7 +119,7 @@ function createVoxel( coordinate, colorIdx ) {
 
 function initMeshs() {
   // Cubes
-  cubeGeometry = new THREE.CubeGeometry( cubeX-0.6, cubeY-fixY, cubeZ-3 );
+  cubeGeometry = new THREE.CubeGeometry( cubeX-0.6, cubeY-fixY, cubeZ-1.2 );
   
   brush = new THREE.Mesh( cubeGeometry,
                           new THREE.MeshPhongMaterial( { color: 0x000000,
@@ -155,7 +155,7 @@ function initMeshs() {
   }
 
   // Lines (Grid)
-  var lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.1 } );
+  lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.1 } );
   var geometry1 = new THREE.Geometry();
   geometry1.vertices.push( new THREE.Vector3( 0, 0.1, -planeZ/2 ) );
   geometry1.vertices.push( new THREE.Vector3( 0, 0.1, planeZ/2 ) );
@@ -165,8 +165,8 @@ function initMeshs() {
 
 
   // Coordinates ( Z: blue, X: red )
-  var coordinateLineMaterialZ = new THREE.LineBasicMaterial( { color: 0x0000cc, opacity: 0.5 } );  
-  var coordinateLineMaterialX = new THREE.LineBasicMaterial( { color: 0xcc0000, opacity: 0.5 } );  
+  coordinateLineMaterialZ = new THREE.LineBasicMaterial( { color: 0x0000cc, opacity: 0.5 } );  
+  coordinateLineMaterialX = new THREE.LineBasicMaterial( { color: 0xcc0000, opacity: 0.5 } );  
   var line1 = new THREE.Line( geometry1, coordinateLineMaterialZ );  // Grow to +z
   var line2 = new THREE.Line( geometry2, coordinateLineMaterialX );  // Grow to +x
   
@@ -298,6 +298,19 @@ function printTopCoordinates() {
   });
 }
 
+function printAllCoordinates() {
+  allVoxels.forEach(function(voxel) {
+    console.log(voxel.coordinate);
+  });
+}
+
+function sortAllVoxels() {
+  allVoxels.sort( function( va, vb ) {
+    var ca = va.coordinate, cb = vb.coordinate;
+    return ( ca.x - cb.x ) * 320 + ( ca.z - cb.z ) * 32 + ( ca.y - cb.y );
+  });
+}
+
 
 function addVoxel( coordinate ) {
   console.log('To be added:', coordinate);
@@ -343,7 +356,6 @@ function addVoxel( coordinate ) {
    =============
    1. topVoxels
    2. lockedDestinations
-
  */
 function removeVoxel( coordinate ) {
   console.log('To be removed:', coordinate);
@@ -470,11 +482,14 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   var maxY = getMaxYOnRoad( origin, destination ), extHeight = 0.3;
   
   moveVoxelToCoordinate( voxelOrigin, destination, (maxY + extHeight), function() {
-    unlockDestination( destination );
+    
     if ( callback ) {
       callback();
-      updateHash();
     }
+    
+    unlockDestination( destination );
+    updateHash();
+    
   } );
   
   return true;
@@ -947,6 +962,42 @@ function initGUI() {
   gui.close();
 }
 
+function save() {
+  brush.position.y = brushHideHeight;
+  
+  var _opacityZ  = coordinateLineMaterialZ.opacity;
+  var _opacityX  = coordinateLineMaterialX.opacity;
+  coordinateLineMaterialZ.opacity = 0.15;
+  coordinateLineMaterialX.opacity = 0.15;
+  lineMaterial.opacity = 0.05;
+  
+  render();
+  
+  window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' ); // 将Canvas转换成图片
+
+  coordinateLineMaterialZ.opacity = _opacityZ;
+  coordinateLineMaterialX.opacity = _opacityX;
+  lineMaterial.opacity = 0.1;
+  
+  render();
+}
+
+function clear() {
+  if ( !confirm( 'Are you sure?' ) ) {
+    return
+  }
+
+  var voxel;
+  for ( var i in allVoxels ) {
+    voxel = allVoxels[ i ];
+    scene.remove( voxel );
+  }
+  topVoxels = [];
+  allVoxels = [];
+  
+  updateHash();
+  render();
+}
 
 
 ////////////////////////////// Utils //////////////////////////////
@@ -994,7 +1045,6 @@ function buildFromHash( ) {
       if ( current.c == 9 ) { // Black
         topVoxels.push( voxel );
       }
-      
     }
   }
   updateHash();
@@ -1007,6 +1057,8 @@ function updateHash() { // 更新当前Hash编码
   last = { x: 0, y: 0, z: 0, c: 0 }, // 上一个
   coordinate, code;
 
+  sortAllVoxels();
+  
   for ( var i in allVoxels ) {
 
     object = allVoxels[ i ];
