@@ -1,27 +1,31 @@
 
 
-var container, gui;
-var scene, camera, renderer ;
-var controls, projector;
-var colors = [ 0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030 ];
-var gridSize = 40;
-var cubeX = 30, cubeY=36, cubeZ = 40, fixY = 0;
-var planeX = gridSize * cubeX, planeZ = gridSize * cubeZ, brushHideHeight = 4000;
-var cubeGeometry, lineMaterial, coordinateLineMaterialZ, coordinateLineMaterialX;
+var container;                // 画布容器 (一个容纳 <canvas> 的 <div>)
+var gui;                      // 右侧的参数配置栏
+var scene, camera, renderer;  // 必要的 WebGL 对象
+var controls;                 // 用来自动处理旋转和缩放
+var projector, rayCaster, mouse3D; // 用来计算鼠标下物体的坐标
+var brush;                         // 虚拟的方块
+var allVoxels = [], topVoxels = [], lockedDestinations = [];
 
-var brush, allVoxels = [], topVoxels = [], lockedDestinations = [];
-var coordinate0 , coordinate1, coordinateMinY, coordinateMaxY;
-var paramX, paramY, paramZ,
-paramX0, paramY0, paramZ0, paramX1, paramY1, paramZ1;
-
-var modeDict = {
+var modeDict = {                // 用来记录当前的操作模式
   move: false,
   add: false,
   remove: false
 };
-// var isShiftDown = false, isControlDown = false, isAltDown = false;
-var rayCaster, mouse3D, hoveredVoxel = null, selectedVoxel = null, destinationVoxel = null;
+
+var paramX, paramY, paramZ, paramX0, paramY0, paramZ0, paramX1, paramY1, paramZ1; // 一堆用来控制右侧参数栏坐标的变量
+var coordinate0 , coordinate1; // 对应右侧参数栏的起点坐标和目的地坐标
+var hoveredVoxel = null;       // 当前被触碰的方块对象
+var selectedVoxel = null;      // 被选中的方块对象 (在移动方块时选择)
+
+// Constants
+var colors = [ 0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030 ];
+var gridSize = 40;
+var cubeX = 30, cubeY=36, cubeZ = 40, fixY = 0;
+var planeX = gridSize * cubeX, planeZ = gridSize * cubeZ, brushHideHeight = 4000;
 var moveOpacity = 0.75, removeOpacity = 0.3, selectedOpacity = 0.5, moveSelectedOpacity = 0.3, topOpacity = 0.82;
+var cubeGeometry, lineMaterial, coordinateLineMaterialZ, coordinateLineMaterialX;
 
 /** <---- @weet [2013-07-21 11:39] ---->
    
@@ -627,7 +631,7 @@ function interact() {
       brush.position.y = Math.floor( point.y / cubeY ) * cubeY + cubeY/2; 
       brush.position.z = Math.floor( point.z / cubeZ ) * cubeZ + cubeZ/2;
       brush.coordinate = positionToCoordinate( brush.position );
-      updateTouchedCoordinateGUI ( brush.coordinate );
+      updateHoveredCoordinateGUI ( brush.coordinate );
       return;
     }
   }
@@ -862,10 +866,10 @@ function exchangeCoordinate() {
 }
 
 // Dependent by `moveVoxelByCoordinates`
-function updateTouchedCoordinateGUI( touchedCoordinate ) {
-  paramX.setValue( touchedCoordinate.x );
-  paramY.setValue( touchedCoordinate.y );
-  paramZ.setValue( touchedCoordinate.z );
+function updateHoveredCoordinateGUI( hoveredCoordinate ) {
+  paramX.setValue( hoveredCoordinate.x );
+  paramY.setValue( hoveredCoordinate.y );
+  paramZ.setValue( hoveredCoordinate.z );
 }
 
 
@@ -883,7 +887,7 @@ function updateTestCoordinatesGUI() {
 
 function initGUI() {
   gui = new dat.GUI();
-  
+
   coordinate0 = { x: 0, y: 0, z: 0 };
   coordinate1 = { x: 0, y: 0, z: 0 };
   
@@ -916,7 +920,7 @@ function initGUI() {
       },
     };
   
-  var folder = gui.addFolder('Touched coordinate:');
+  var folder = gui.addFolder('Hovered coordinate:');
   paramX = folder.add( parameters, 'x' );
   paramY = folder.add( parameters, 'y' );
   paramZ = folder.add( parameters, 'z' );
@@ -1026,7 +1030,6 @@ function buildFromHash( ) {
   var data = decode( window.location.hash.substr( 1 ) );
   var i = 0, l = data.length;
 
-  console.log( data );
   while ( i < l ) {
 
     var code = data[ i++ ].toString( 2 );
@@ -1113,7 +1116,6 @@ function updateHash() { // 更新当前Hash编码
     }
   }
 
-  // console.log('data:', data);
   data = encode( data );
   window.location.hash =  data;
   document.getElementById( 'link').href = "http://thewawar.github.io/blog/webgl/my-voxels.html#" + data;
