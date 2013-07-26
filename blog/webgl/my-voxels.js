@@ -25,11 +25,6 @@ var moveOpacity = 0.75, removeOpacity = 0.3, selectedOpacity = 0.5, moveSelected
 
 /** <---- @weet [2013-07-21 11:39] ---->
    
-   Bus:
-   ====
-   1. 移动一定次数后会卡死，怀疑是内存泄漏或死循环
-
-   
    Features:
    =========
    . Hover 方块时显示方块的信息(比如坐标...)
@@ -38,9 +33,8 @@ var moveOpacity = 0.75, removeOpacity = 0.3, selectedOpacity = 0.5, moveSelected
 
    Tasks:
    ======
-   1. TODO:: 完善文档
-   2. 路径搜索算法，考虑方块的势能，以及翻箱次数
-   3. 解决无法在侧面添加方块的问题
+   1. 路径搜索算法，考虑方块的势能，以及翻箱次数
+   2. 解决无法在侧面添加方块的问题
    
  */
 
@@ -51,7 +45,7 @@ function init() {
   // Add container to `body`
   container = document.createElement( 'div' );
   document.body.appendChild( container );
-  
+
   // Scene
   scene = new THREE.Scene();
 
@@ -108,9 +102,10 @@ function init() {
 }
 
 
-function createVoxel( coordinate ) {
+function createVoxel( coordinate, colorIdx ) {
+  var currColorIdx = colorIdx ? colorIdx : (coordinate.x+coordinate.y+coordinate.z+73)%7+1;
   var voxel = new THREE.Mesh( cubeGeometry,
-                              new THREE.MeshPhongMaterial( { color: colors[ (coordinate.x+coordinate.y+coordinate.z+73)%7+1 ] } ) );
+                              new THREE.MeshPhongMaterial( { color: colors[ currColorIdx ] } ) );
   voxel.coordinate = coordinate;
   var p = coordinateToPosition( voxel.coordinate );
   voxel.position.set( p.x, p.y, p.z );
@@ -135,11 +130,12 @@ function initMeshs() {
   brush.position.set( p.x, p.y, p.z );
   scene.add(brush);
 
-  var sx = 2, sz = 2, sy = 6;
+  /*
+  var sx = 2, sz = 2, sy = 4;
   for ( var i=-sx; i<sx; i++) {
     for (var j=-sz; j<sz; j++) {
-      
-      var MK = parseInt(Math.random() * sy / 2 + sy / 2);
+
+      var MK = sy+i;
       for ( var k=0; k<MK; k++) {
         
         var voxel = createVoxel( { x: i, y: k, z: j } );
@@ -147,10 +143,15 @@ function initMeshs() {
         allVoxels.push(voxel);
 
         if ( k == MK-1 ) {
+          voxel.material.color.setHex( colors[ 9 ] );
           topVoxels.push(voxel);
         }
       }
     }
+  }
+  */
+  if ( window.location.hash ) {
+    buildFromHash();
   }
 
   // Lines (Grid)
@@ -265,30 +266,6 @@ function getVoxelIndexByCoordinate(  voxels, coordinate ) {
   return null;
 }
 
-function validateTopVoxels() {
-  var isOK = true, dict = {};
-  
-  for ( var x = -2; x <= 2; x++) {
-    for ( var z = -1; z <= 2; z++) {
-      if ( x != 0 && z != 0 ) {
-        dict[ ''+x+', '+z ] = false;
-      }
-    }
-  }
-  
-  topVoxels.forEach( function( voxel ) {
-    var c = voxel.coordinate;
-    dict[ ''+c.x+', '+c.z ] = true;
-  });
-
-  for ( k in dict ) {
-    if ( dict[ k ] == false ) {
-      console.error('Validate top voxels Failed! : ', k);
-      isOK = false;
-    }
-  }
-  return isOK;
-}
 
 function findTopCoordinateByX( x ) {
   var results = [];
@@ -328,7 +305,7 @@ function addVoxel( coordinate ) {
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
   var topIdxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
 
-  // Error handlers: Check if can be added.
+  // >>> Error handlers: Check if can be added.
   if ( topIdxBelow == null && coordinate.y != 0 ) {
     console.warn( 'Add ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
@@ -341,7 +318,7 @@ function addVoxel( coordinate ) {
   }
 
 
-  // Adding...
+  // >>> Adding... <<<
   if ( coordinate.y != 0 ) {
     console.log( 'Remove from TOP:', topVoxels[ topIdxBelow ].coordinate);
     topVoxels[ topIdxBelow ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
@@ -350,12 +327,14 @@ function addVoxel( coordinate ) {
 
   var voxel = createVoxel( coordinate );
   scene.add( voxel );
+  voxel.material.color.setHex( colors[ 9 ] );
   topVoxels.push( voxel );
   allVoxels.push( voxel );
 
   console.log( 'Add to TOP:', voxel.coordinate);
   console.log( 'Voxel added(to: [SCENE, TOP, ALL]):', voxel.coordinate);
-
+  
+  updateHash();
   return true;
 }
 
@@ -369,7 +348,7 @@ function addVoxel( coordinate ) {
 function removeVoxel( coordinate ) {
   console.log('To be removed:', coordinate);
   
-  // Error handlers: Check if can be removed.
+  // >>> Error handlers: Check if can be removed.
   var topIdx = getVoxelIndexByCoordinate( topVoxels, coordinate );
   if ( topIdx == null ) {
     console.warn( 'Remove ERROR: Can not remove voxel not on the top!', coordinate );
@@ -406,12 +385,13 @@ function removeVoxel( coordinate ) {
 
   if ( coordinate.y != 0 ) { // If target voxel not on the plane.
     console.log( 'Add to TOP:', voxelBelow.coordinate );
+    voxelBelow.material.color.setHex( colors[ 9 ] );
     topVoxels.push( voxelBelow );
   }
 
   console.log( 'Voxel removed:', voxel.coordinate);
 
-  validateTopVoxels();
+  updateHash();
   return true;
 }
 
@@ -425,7 +405,7 @@ function removeVoxel( coordinate ) {
 function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordinates
   console.log( 'To be move: ', origin, destination );
 
-  // Error handlers: Check if origin can move and the destination is valid.
+  // >>> Error handlers: Check if origin can move and the destination is valid.
   if ( origin.x == destination.x && origin.z == destination.z ) {
     console.warn( 'Move ERROR: Can not move vertical!', origin, destination );
     return false;
@@ -476,6 +456,7 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
     var allIdxUnderOrigin = getVoxelIndexByCoordinate( allVoxels, coordinateUnderOrigin );
     
     console.log( 'Add to TOP:', allVoxels[ allIdxUnderOrigin ].coordinate );    
+    allVoxels[ allIdxUnderOrigin ].material.color.setHex( colors[ 9 ] );
     topVoxels.push( allVoxels[ allIdxUnderOrigin ] );
   }
   
@@ -492,8 +473,8 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
     unlockDestination( destination );
     if ( callback ) {
       callback();
+      updateHash();
     }
-    validateTopVoxels();
   } );
   
   return true;
@@ -598,9 +579,6 @@ function render() {
     }
   }
 
-  topVoxels.forEach( function( voxel ) {
-    voxel.material.color.setHex( colors[ 9 ] );
-  });
   renderer.render(scene, camera);
 }
 
@@ -891,7 +869,9 @@ function updateTestCoordinatesGUI() {
 function initGUI() {
   gui = new dat.GUI();
   
-  selectTestCoordinates( topVoxels );
+  coordinate0 = { x: 0, y: 0, z: 0 };
+  coordinate1 = { x: 0, y: 0, z: 0 };
+  
   var parameters = 
     {
       x: 0, y: 0, z: 0,
@@ -963,8 +943,8 @@ function initGUI() {
   gui.add( parameters, '_selectTestCoordinates').name("Select TOP2");
   gui.add( parameters, 'move').name("Move!");
   
-  gui.open();
-  // gui.close();
+  //gui.open();
+  gui.close();
 }
 
 
@@ -985,3 +965,122 @@ function positionToCoordinate( pos ) {
   coord.z = Math.round( pos.z/cubeZ - 0.5 ); // Math.round( pos.z/cubeZ + ( pos.z > 0 ? 0.5 : -0.5 ) );
   return coord;
 }
+
+
+////////////////////////////// Encode & Decode //////////////////////////////
+
+function buildFromHash( ) {
+  
+  var current = { x: 0, y: 0, z: 0, c: 0 }
+  var data = decode( window.location.hash.substr( 1 ) );
+  var i = 0, l = data.length;
+
+  console.log( data );
+  while ( i < l ) {
+
+    var code = data[ i++ ].toString( 2 );
+
+    if ( code.charAt( 1 ) == "1" ) current.x += data[ i++ ] - 32;
+    if ( code.charAt( 2 ) == "1" ) current.y += data[ i++ ] - 32;
+    if ( code.charAt( 3 ) == "1" ) current.z += data[ i++ ] - 32;
+    if ( code.charAt( 4 ) == "1" ) current.c += data[ i++ ] - 32;
+    if ( code.charAt( 0 ) == "1" ) {
+
+      var coordinate = { x: current.x, y: current.y, z: current.z };
+      var voxel = createVoxel( coordinate, current.c );
+      scene.add( voxel );
+      allVoxels.push( voxel );
+
+      if ( current.c == 9 ) { // Black
+        topVoxels.push( voxel );
+      }
+      
+    }
+  }
+  updateHash();
+}
+
+function updateHash() { // 更新当前Hash编码
+
+  var data = [],
+  current = { x: 0, y: 0, z: 0, c: 0 },
+  last = { x: 0, y: 0, z: 0, c: 0 }, // 上一个
+  coordinate, code;
+
+  for ( var i in allVoxels ) {
+
+    object = allVoxels[ i ];
+
+    coordinate = positionToCoordinate( object.position );
+    current.x = coordinate.x;
+    current.y = coordinate.y;
+    current.z = coordinate.z;
+    current.c = colors.indexOf( object.material.color.getHex() );
+
+    code = 0;
+
+    if ( current.x != last.x ) code += 1000; 
+    if ( current.y != last.y ) code += 100;
+    if ( current.z != last.z ) code += 10;
+    if ( current.c != last.c ) code += 1;
+
+    code += 10000;
+
+    data.push( parseInt( code, 2 ) ); // 在哪些维度上有偏移
+
+    // >>> 如果在某一维度上有偏移，则添加其偏移量
+    
+    if ( current.x != last.x ) {
+
+      // 32 是可选字符串长度的一半, 所以如果有两个方块某个维度的坐标
+      // 差值大于31或小于-32就要悲剧了！
+      data.push( current.x - last.x + 32 );
+      last.x = current.x;
+
+    }
+
+    if ( current.y != last.y ) {
+
+      data.push( current.y - last.y + 32 );
+      last.y = current.y;
+
+    }
+
+    if ( current.z != last.z ) {
+
+      data.push( current.z - last.z + 32 );
+      last.z = current.z;
+
+    }
+
+    if ( current.c != last.c ) {
+
+      data.push( current.c - last.c + 32 );
+      last.c = current.c;
+
+    }
+  }
+
+  // console.log('data:', data);
+  data = encode( data );
+  window.location.hash =  data;
+  document.getElementById( 'link').href = "http://thewawar.github.io/blog/webgl/my-voxels.html#" + data;
+}
+
+// https://gist.github.com/665235
+function decode( string ) { // *** 解码Hash字符串生成一个数组
+
+  var output = [];
+  string.split('').forEach( function ( v ) { output.push( "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".indexOf( v ) ); } );
+  return output;
+
+}
+
+function encode( array ) {  // *** 编码数组(什么数组?)生成Hash字符串
+
+  var output = "";
+  array.forEach( function ( v ) { output += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".charAt( v ); } );
+  return output;
+
+}
+

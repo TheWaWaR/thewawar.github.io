@@ -11,9 +11,34 @@
         margin: 0px;
         overflow: hidden;
       }
+
+      #help {
+        position: absolute;
+        top: 5px;
+        width: 100%;
+        text-align: center;
+      }
+      #help span {
+        color: #444;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        padding: 8px 10px;
+      }
+      
     </style>
   </head>
   <body>
+    <div id="help">
+      <span>
+        <strong>Shift + click</strong>: Mark voxel to move,
+        <strong>Shift + click</strong>: Add voxel,
+        <strong>Alt + click</strong>: Remove voxel,
+        <strong>Drag</strong>: Rotate,
+        <strong>Wheel</strong>: Zoom
+         | 
+        <a id="link" href="" target="_blank">Share</a>
+      </span>      
+    </div>
 
     <script type="text/javascript" src="js/three.js"></script>
     <!-- <script type="text/javascript" src="js/TrackballControls.js"></script> -->
