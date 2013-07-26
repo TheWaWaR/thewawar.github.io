@@ -332,11 +332,13 @@ function addVoxel( coordinate ) {
   
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
   var topIdxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
-  
+
+  /* Looks like not necessary... 
   if ( topIdxBelow == null && coordinate.y != 0 ) {
     console.warn( 'Add ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
   }
+  */
   
   var idxLocked = findLockedDestination( coordinateBelow );
   if ( idxLocked != null ) {
