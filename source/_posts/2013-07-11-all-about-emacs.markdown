@@ -38,6 +38,8 @@ Oh! The features!
 ### . yasnippet
 ### . Color theme : [zenburn]
 > [zenburn on GitHub](https://github.com/bbatsov/zenburn-emacs)
+
+
 ### . Dictionary : [youdao, sdcv]
 ### . Version control : [magit]
 Already the latest version[1.2.0]. Use `e` in magit mode to use the
