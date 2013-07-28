@@ -180,6 +180,16 @@ password that after md5 processed).</p>
 <p><em>[Option]</em> :: In <em>postgresql.conf</em> , Change <code>listen_addresses</code> from
  <code>localhost</code> to <code>*</code> so you can connect postgresql from remote host.</p>
 
+<p>If you get message like:</p>
+
+<pre><code>psql: FATAL:  no pg_hba.conf entry for host "115.192.190.55", user "postgres", database "postgres", SSL off
+</code></pre>
+
+<p>You should change something in file <em>pg_hba.conf</em>, add a line like this:</p>
+
+<pre><code>host    all             all             0.0.0.0/0            md5
+</code></pre>
+
 <h1> FAQ </h1>
 
 <h3>1. How to import(or export) data or scheme from .sql file?</h3>

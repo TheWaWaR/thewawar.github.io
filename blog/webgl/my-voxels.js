@@ -128,7 +128,7 @@ function initMeshs() {
   // Cubes
   cubeGeometry = new THREE.CubeGeometry( cubeX-0.6, cubeY-fixY, cubeZ-1.2 );
   
-  brush = new THREE.Mesh( cubeGeometry,
+  brush = new THREE.Mesh( new THREE.CubeGeometry( cubeX-0.4, cubeY, cubeZ-0.8 ),
                           new THREE.MeshPhongMaterial( { color: 0x000000,
                                                          wireframe: true,
                                                          opacity: 0.4 } ) );
@@ -524,7 +524,7 @@ function moveVoxelToCoordinate( target, destination, top, callback) {
     positions.push( coordinateToPosition(coords[i]) );
   }
   
-  moveVoxel( target, positions, 1, true, callback);
+  moveVoxel( target, positions, 1, callback);
 }
 
 function getMaxYOnRoad( origin, destination ) {
@@ -541,7 +541,8 @@ function getMaxYOnRoad( origin, destination ) {
   return maxY;
 }
 
-function moveVoxel( target, positions, i, isForward, callback) {
+function moveVoxel( target, positions, i, callback) {
+  
   var counter = 0, steps, spend;
   var toPos = positions[i], curPos = target.position;
   var frmPos = curPos.clone();
@@ -551,7 +552,8 @@ function moveVoxel( target, positions, i, isForward, callback) {
   spend = Math.sqrt(DX*DX + DY*DY+ DZ*DZ) * 10; // 移动一次花费的时间 (单位: 毫秒)
   steps = spend / 12;
   var dx = DX/steps, dy = DY/steps, dz = DZ/steps;
-
+  
+  console.log( new Date(), counter );
   target.isMoving = true;
   
   var myInterval = setInterval(function() {
@@ -564,25 +566,25 @@ function moveVoxel( target, positions, i, isForward, callback) {
     // Stop or trun around
     if (counter >= steps) {
       clearInterval(myInterval);
-      if ( i == positions.length-1 ) {
-        isForward = false;
-      } else if ( i == 0 ) {
-        isForward = true;
-      }
-      i += ( isForward ? 1 : -1 );
-      
+      i += 1;
       target.coordinate = positionToCoordinate(target.position);
       
-      if ( isForward ) {
-        moveVoxel(target, positions, i, isForward, callback);
+      if ( i < positions.length ) {
+        
+        moveVoxel(target, positions, i, callback);
+        
       } else {
+        
         target.isMoving = false;
         var p = coordinateToPosition(target.coordinate);
         target.position.set( p.x, p.y, p.z ); // 弥补计算误差
         target.material.opacity = 1;
+        
         callback();
+        console.log( new Date(), counter );
         render();
         return;
+        
       }
     }
   }, 12);
