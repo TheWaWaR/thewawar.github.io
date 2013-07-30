@@ -4,7 +4,7 @@
   <title><![CDATA[WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-28T21:52:18+08:00</updated>
+  <updated>2013-07-30T15:22:18+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -12,52 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[A little WebGL Project]]></title>
-    <link href="http://TheWaWaR.github.io/blog/2013/07/17/a-little-webgl-project/"/>
-    <updated>2013-07-17T17:09:00+08:00</updated>
-    <id>http://TheWaWaR.github.io/blog/2013/07/17/a-little-webgl-project</id>
-    <content type="html"><![CDATA[<h1>Steps</h1>
-
-<h3>. Put some [cube]s in the right order right place</h3>
-
-<ul>
-<li>DONE:: Put some example cubes</li>
-<li>Put cubes by locations
-
-<h3>. Make cube [dragable]</h3></li>
-<li>TODO::
-
-<h3>. Select a cute and [show] it&rsquo;s infomation</h3>
-
-<h3>. [Search] for cube by location</h3>
-
-<h3>. Automatic [move] a cube form one place to another</h3></li>
-</ul>
-
-
-<h1>Notes</h1>
-
-<h4>. Cube&rsquo;s information</h4>
-
-<ul>
-<li>position</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[All about JavaScript]]></title>
-    <link href="http://TheWaWaR.github.io/blog/2013/07/17/all-about-javascript/"/>
-    <updated>2013-07-17T17:08:00+08:00</updated>
-    <id>http://TheWaWaR.github.io/blog/2013/07/17/all-about-javascript</id>
-    <content type="html"><![CDATA[<h1> FAQ</h1>
-
-<h3>1. How to sleep a while?</h3>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[All about Git]]></title>
@@ -103,70 +57,6 @@ git push --set-upstream origin learn
 
 <pre><code>git checkout -b  [NEW-BRANCH-NAME]  [TAG-NAME]
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[All about Tmux]]></title>
-    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-tmux/"/>
-    <updated>2013-07-11T14:03:00+08:00</updated>
-    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-tmux</id>
-    <content type="html"><![CDATA[<h2>Installation</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>yum install ncurses-devel
-</span><span class='line'>
-</span><span class='line'>wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
-</span><span class='line'>ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
-</span><span class='line'>
-</span><span class='line'>wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
-</span><span class='line'>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
-</span><span class='line'>
-</span><span class='line'><span class="c"># Download my tmux.conf from gist.github.com</span>
-</span><span class='line'>curl https://gist.github.com/TheWaWaR/5889519/raw/96d183211a899462a923a2dc1532b3490bbdd056/tmux.conf &gt; ~/.tmux.conf
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Configure Tmux &amp; Bash &amp; Zsh</h2>
-
-<ul>
-<li>In ~/.bashrc</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span><span class="s1">&#39;xterm-256color&#39;</span>
-</span><span class='line'><span class="nb">export </span><span class="nv">TMUX_SHELL</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/zsh&#39;</span>
-</span><span class='line'><span class="nb">alias </span><span class="nv">tfg</span><span class="o">=</span><span class="s1">&#39;tmux attach&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<ul>
-<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span>-option -g default-shell <span class="nv">$TMUX_SHELL</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

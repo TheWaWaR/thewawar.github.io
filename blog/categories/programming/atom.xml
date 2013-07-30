@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | WEET's way]]></title>
   <link href="http://TheWaWaR.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://TheWaWaR.github.io/"/>
-  <updated>2013-07-28T21:52:18+08:00</updated>
+  <updated>2013-07-30T15:22:18+08:00</updated>
   <id>http://TheWaWaR.github.io/</id>
   <author>
     <name><![CDATA[weet]]></name>
@@ -12,60 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[All about Tmux]]></title>
-    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-tmux/"/>
-    <updated>2013-07-11T14:03:00+08:00</updated>
-    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-tmux</id>
-    <content type="html"><![CDATA[<h2>Installation</h2>
-
-<p>``` bash</p>
-
-<pre><code>yum install ncurses-devel
-
-wget --no-check-certificate https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-./configure &amp;&amp; make &amp;&amp; make install    
-ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
-
-wget http://sourceforge.net/projects/tmux/files/tmux/tmux-1.8/tmux-1.8.tar.gz
-./configure &amp;&amp; make &amp;&amp; make install
-
-# Download my tmux.conf from gist.github.com
-curl https://gist.github.com/TheWaWaR/5889519/raw/96d183211a899462a923a2dc1532b3490bbdd056/tmux.conf &gt; ~/.tmux.conf
-</code></pre>
-
-<p>```</p>
-
-<h2>Configure Tmux &amp; Bash &amp; Zsh</h2>
-
-<ul>
-<li>In ~/.bashrc</li>
-</ul>
-
-
-<p>``` bash</p>
-
-<pre><code>export TERM='xterm-256color'
-export TMUX_SHELL='/usr/local/bin/zsh'
-alias tfg='tmux attach'
-</code></pre>
-
-<p>```</p>
-
-<ul>
-<li>In ~/.tmux.conf (DO <strong>NOT</strong> edit this file directly)</li>
-</ul>
-
-
-<p>```</p>
-
-<pre><code>set-option -g default-shell $TMUX_SHELL
-</code></pre>
-
-<p>```</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[All about Emacs]]></title>
