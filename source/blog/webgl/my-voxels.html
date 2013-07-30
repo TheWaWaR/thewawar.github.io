@@ -14,30 +14,35 @@
 
       #help {
         position: absolute;
-        top: 5px;
         width: 100%;
         text-align: center;
-      }
-      #help span {
         color: #444;
-        background-color: #fff;
+        background-color: #EDEDED;
         border-bottom: 1px solid #ddd;
         padding: 8px 10px;
+      }
+
+      #action {
+        margin-top: 3px;
+        padding-top: 5px;
+        border-top: 1px dotted #ddd;
       }
       
     </style>
   </head>
   <body>
     <div id="help">
-      <span>
-        <strong>Shift + click</strong>: Mark voxel to move,
-        <strong>Shift + click</strong>: Add voxel,
-        <strong>Alt + click</strong>: Remove voxel,
-        <strong>Drag</strong>: Rotate,
-        <strong>Wheel</strong>: Zoom
-         | 
-        <a id="link" href="" target="_blank">Share</a>
-      </span>      
+      <strong>Shift + click</strong>: Mark voxel to move, 
+      <strong>Ctrl + click</strong>: Add voxel, 
+      <strong>Alt + click</strong>: Remove voxel <br />
+      <strong>Drag</strong>: Rotate, 
+      <strong>Wheel</strong>: Zoom <br />
+      
+      <div id="action">
+        [ <a id="link" href="" target="_blank">Share</a> | 
+        <a href="javascript:save();">Save</a> | 
+        <a href="javascript:clear();">Clear</a> ]
+      </div>
     </div>
 
     <script type="text/javascript" src="js/three.js"></script>

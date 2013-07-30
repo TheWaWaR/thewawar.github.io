@@ -1,27 +1,31 @@
 
 
-var container, gui;
-var scene, camera, renderer ;
-var controls, projector;
-var colors = [ 0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030 ];
-var gridSize = 40;
-var cubeX = 30, cubeY=36, cubeZ = 40, fixY = 0;
-var planeX = gridSize * cubeX, planeZ = gridSize * cubeZ, brushHideHeight = 4000;
-var cubeGeometry;
+var container;                // 画布容器 (一个容纳 <canvas> 的 <div>)
+var gui;                      // 右侧的参数配置栏
+var scene, camera, renderer;  // 必要的 WebGL 对象
+var controls;                 // 用来自动处理旋转和缩放
+var projector, rayCaster, mouse3D; // 用来计算鼠标下物体的坐标
+var brush;                         // 虚拟的方块
+var allVoxels = [], topVoxels = [], lockedDestinations = [];
 
-var brush, allVoxels = [], topVoxels = [], lockedDestinations = [];
-var coordinate0 , coordinate1, coordinateMinY, coordinateMaxY;
-var paramX, paramY, paramZ,
-paramX0, paramY0, paramZ0, paramX1, paramY1, paramZ1;
-
-var modeDict = {
+var modeDict = {                // 用来记录当前的操作模式
   move: false,
   add: false,
   remove: false
 };
-// var isShiftDown = false, isControlDown = false, isAltDown = false;
-var rayCaster, mouse3D, hoveredVoxel = null, selectedVoxel = null, destinationVoxel = null;
+
+var paramX, paramY, paramZ, paramX0, paramY0, paramZ0, paramX1, paramY1, paramZ1; // 一堆用来控制右侧参数栏坐标的变量
+var coordinate0 , coordinate1; // 对应右侧参数栏的起点坐标和目的地坐标
+var hoveredVoxel = null;       // 当前被触碰的方块对象
+var selectedVoxel = null;      // 被选中的方块对象 (在移动方块时选择)
+
+// Constants
+var colors = [ 0xDF1F1F, 0xDFAF1F, 0x80DF1F, 0x1FDF50, 0x1FDFDF, 0x1F4FDF, 0x7F1FDF, 0xDF1FAF, 0xEFEFEF, 0x303030 ];
+var gridSize = 40;
+var cubeX = 30, cubeY=36, cubeZ = 40, fixY = 0;
+var planeX = gridSize * cubeX, planeZ = gridSize * cubeZ, brushHideHeight = 4000;
 var moveOpacity = 0.75, removeOpacity = 0.3, selectedOpacity = 0.5, moveSelectedOpacity = 0.3, topOpacity = 0.82;
+var cubeGeometry, lineMaterial, coordinateLineMaterialZ, coordinateLineMaterialX;
 
 /** <---- @weet [2013-07-21 11:39] ---->
    
@@ -101,11 +105,14 @@ function init() {
   window.addEventListener( 'resize', onWindowResize, false );
 }
 
+function getColor( coordinate ) {
+  return colors[ ( coordinate.x + coordinate.y + coordinate.z + 73 )%7+1 ];
+}
 
 function createVoxel( coordinate, colorIdx ) {
-  var currColorIdx = colorIdx ? colorIdx : (coordinate.x+coordinate.y+coordinate.z+73)%7+1;
+  var color = colorIdx ? colors[ colorIdx ] : getColor( coordinate );
   var voxel = new THREE.Mesh( cubeGeometry,
-                              new THREE.MeshPhongMaterial( { color: colors[ currColorIdx ] } ) );
+                              new THREE.MeshPhongMaterial( { color: color } ) );
   voxel.coordinate = coordinate;
   var p = coordinateToPosition( voxel.coordinate );
   voxel.position.set( p.x, p.y, p.z );
@@ -119,9 +126,9 @@ function createVoxel( coordinate, colorIdx ) {
 
 function initMeshs() {
   // Cubes
-  cubeGeometry = new THREE.CubeGeometry( cubeX-0.6, cubeY-fixY, cubeZ-3 );
+  cubeGeometry = new THREE.CubeGeometry( cubeX-0.6, cubeY-fixY, cubeZ-1.2 );
   
-  brush = new THREE.Mesh( cubeGeometry,
+  brush = new THREE.Mesh( new THREE.CubeGeometry( cubeX-0.4, cubeY, cubeZ-0.8 ),
                           new THREE.MeshPhongMaterial( { color: 0x000000,
                                                          wireframe: true,
                                                          opacity: 0.4 } ) );
@@ -155,7 +162,7 @@ function initMeshs() {
   }
 
   // Lines (Grid)
-  var lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.1 } );
+  lineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.1 } );
   var geometry1 = new THREE.Geometry();
   geometry1.vertices.push( new THREE.Vector3( 0, 0.1, -planeZ/2 ) );
   geometry1.vertices.push( new THREE.Vector3( 0, 0.1, planeZ/2 ) );
@@ -165,8 +172,8 @@ function initMeshs() {
 
 
   // Coordinates ( Z: blue, X: red )
-  var coordinateLineMaterialZ = new THREE.LineBasicMaterial( { color: 0x0000cc, opacity: 0.5 } );  
-  var coordinateLineMaterialX = new THREE.LineBasicMaterial( { color: 0xcc0000, opacity: 0.5 } );  
+  coordinateLineMaterialZ = new THREE.LineBasicMaterial( { color: 0x0000cc, opacity: 0.5 } );  
+  coordinateLineMaterialX = new THREE.LineBasicMaterial( { color: 0xcc0000, opacity: 0.5 } );  
   var line1 = new THREE.Line( geometry1, coordinateLineMaterialZ );  // Grow to +z
   var line2 = new THREE.Line( geometry2, coordinateLineMaterialX );  // Grow to +x
   
@@ -298,18 +305,40 @@ function printTopCoordinates() {
   });
 }
 
+function printAllCoordinates() {
+  allVoxels.forEach(function(voxel) {
+    console.log(voxel.coordinate);
+  });
+}
+
+function sortAllVoxels() {
+  allVoxels.sort( function( va, vb ) {
+    var ca = va.coordinate, cb = vb.coordinate;
+    return ( ca.x - cb.x ) * 320 + ( ca.z - cb.z ) * 32 + ( ca.y - cb.y );
+  });
+}
+
 
 function addVoxel( coordinate ) {
   console.log('To be added:', coordinate);
+
+  
+  // >>> Error handlers: Check if can be added.
+  var allIdx = getVoxelIndexByCoordinate( allVoxels, coordinate );
+  if ( allIdx != null ) {
+    console.warn( 'Add ERROR: Target position already have a voxel!' );
+    return false;
+  }
   
   var coordinateBelow =  { x: coordinate.x, y: coordinate.y-1, z: coordinate.z }
   var topIdxBelow = getVoxelIndexByCoordinate( topVoxels, coordinateBelow );
 
-  // >>> Error handlers: Check if can be added.
+  /* Looks like not necessary... 
   if ( topIdxBelow == null && coordinate.y != 0 ) {
     console.warn( 'Add ERROR: Voxel can only be added above a top voxel or plane!', coordinate );
     return false;
   }
+  */
   
   var idxLocked = findLockedDestination( coordinateBelow );
   if ( idxLocked != null ) {
@@ -320,8 +349,9 @@ function addVoxel( coordinate ) {
 
   // >>> Adding... <<<
   if ( coordinate.y != 0 ) {
-    console.log( 'Remove from TOP:', topVoxels[ topIdxBelow ].coordinate);
-    topVoxels[ topIdxBelow ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
+    var voxelBelow = topVoxels[ topIdxBelow ];
+    console.log( 'Remove from TOP:', voxelBelow.coordinate);
+    voxelBelow.material.color.setHex( getColor( voxelBelow.coordinate ) );
     topVoxels.splice( topIdxBelow, 1 );
   }
 
@@ -343,7 +373,6 @@ function addVoxel( coordinate ) {
    =============
    1. topVoxels
    2. lockedDestinations
-
  */
 function removeVoxel( coordinate ) {
   console.log('To be removed:', coordinate);
@@ -462,19 +491,23 @@ function moveVoxelByCoordinates( origin, destination, callback ) {  // By coordi
   
   // 2. Remove voxel which under destination from `topVoxels` if it's not `plane`
   if ( destination.y != 0 ) {
-    console.log( 'Remove from TOP:', topVoxels[ topIdxUnderDest ].coordinate);
-    topVoxels[ topIdxUnderDest ].material.color.setHex( colors[ parseInt(Math.random()*100)%7+1 ] );
+    var voxelUnderDest = topVoxels[ topIdxUnderDest ];
+    console.log( 'Remove from TOP:', voxelUnderDest.coordinate);
+    voxelUnderDest.material.color.setHex( getColor( voxelUnderDest.coordinate ) );
     topVoxels.splice( topIdxUnderDest, 1 );
   }
 
   var maxY = getMaxYOnRoad( origin, destination ), extHeight = 0.3;
   
   moveVoxelToCoordinate( voxelOrigin, destination, (maxY + extHeight), function() {
-    unlockDestination( destination );
+    
     if ( callback ) {
       callback();
-      updateHash();
     }
+    
+    unlockDestination( destination );
+    updateHash();
+    
   } );
   
   return true;
@@ -486,14 +519,12 @@ function moveVoxelToCoordinate( target, destination, top, callback) {
   var coordB1 = { x: destination.x, y: top, z: destination.z };
   
   var coords = [ origin, coordA1, coordB1, destination ];
-  // console.log('coords:', coords);
   var positions = [];
   for ( var i = 0; i < coords.length; i++) {
     positions.push( coordinateToPosition(coords[i]) );
   }
   
-  // console.log('positions', positions);
-  moveVoxel( target, positions, 1, true, callback);
+  moveVoxel( target, positions, 1, callback);
 }
 
 function getMaxYOnRoad( origin, destination ) {
@@ -510,7 +541,8 @@ function getMaxYOnRoad( origin, destination ) {
   return maxY;
 }
 
-function moveVoxel( target, positions, i, isForward, callback) {
+function moveVoxel( target, positions, i, callback) {
+  
   var counter = 0, steps, spend;
   var toPos = positions[i], curPos = target.position;
   var frmPos = curPos.clone();
@@ -520,7 +552,8 @@ function moveVoxel( target, positions, i, isForward, callback) {
   spend = Math.sqrt(DX*DX + DY*DY+ DZ*DZ) * 10; // 移动一次花费的时间 (单位: 毫秒)
   steps = spend / 12;
   var dx = DX/steps, dy = DY/steps, dz = DZ/steps;
-
+  
+  console.log( new Date(), counter );
   target.isMoving = true;
   
   var myInterval = setInterval(function() {
@@ -533,25 +566,25 @@ function moveVoxel( target, positions, i, isForward, callback) {
     // Stop or trun around
     if (counter >= steps) {
       clearInterval(myInterval);
-      if ( i == positions.length-1 ) {
-        isForward = false;
-      } else if ( i == 0 ) {
-        isForward = true;
-      }
-      i += ( isForward ? 1 : -1 );
-      
+      i += 1;
       target.coordinate = positionToCoordinate(target.position);
       
-      if ( isForward ) {
-        moveVoxel(target, positions, i, isForward, callback);
+      if ( i < positions.length ) {
+        
+        moveVoxel(target, positions, i, callback);
+        
       } else {
+        
         target.isMoving = false;
         var p = coordinateToPosition(target.coordinate);
         target.position.set( p.x, p.y, p.z ); // 弥补计算误差
         target.material.opacity = 1;
+        
         callback();
+        console.log( new Date(), counter );
         render();
         return;
+        
       }
     }
   }, 12);
@@ -612,7 +645,7 @@ function interact() {
       brush.position.y = Math.floor( point.y / cubeY ) * cubeY + cubeY/2; 
       brush.position.z = Math.floor( point.z / cubeZ ) * cubeZ + cubeZ/2;
       brush.coordinate = positionToCoordinate( brush.position );
-      updateTouchedCoordinateGUI ( brush.coordinate );
+      updateHoveredCoordinateGUI ( brush.coordinate );
       return;
     }
   }
@@ -647,7 +680,6 @@ function setMode( mode ) {
 
 
 function onDocumentKeyDown( event ) {
-  console.log( event.keyCode );
   
   switch ( event.keyCode ) {
     
@@ -728,7 +760,6 @@ function onDocumentMouseDown( event ) {
     return;
   }
   
-  //console.log('down');
   if ( selectedVoxel != null ) {
     
     if ( selectedVoxel == hoveredVoxel ) {
@@ -754,12 +785,10 @@ function onDocumentMouseDown( event ) {
 
 
 function onDocumentMouseUp( event ) {
-  //console.log('up');
   render();
 }
 
 function onDocumentMouseMove( event ) {
-  //console.log('move');
   mouse3D = projector.unprojectVector( new THREE.Vector3(  event.clientX / renderer.domElement.width * 2 - 1,
                                                            - event.clientY / renderer.domElement.height * 2 + 1,
                                                            0.5),
@@ -771,7 +800,6 @@ function onDocumentMouseMove( event ) {
 }
 
 function onDocumentMouseWheel( event ) {
-  //console.log('wheel');
   render();
 }
 
@@ -847,10 +875,10 @@ function exchangeCoordinate() {
 }
 
 // Dependent by `moveVoxelByCoordinates`
-function updateTouchedCoordinateGUI( touchedCoordinate ) {
-  paramX.setValue( touchedCoordinate.x );
-  paramY.setValue( touchedCoordinate.y );
-  paramZ.setValue( touchedCoordinate.z );
+function updateHoveredCoordinateGUI( hoveredCoordinate ) {
+  paramX.setValue( hoveredCoordinate.x );
+  paramY.setValue( hoveredCoordinate.y );
+  paramZ.setValue( hoveredCoordinate.z );
 }
 
 
@@ -868,7 +896,7 @@ function updateTestCoordinatesGUI() {
 
 function initGUI() {
   gui = new dat.GUI();
-  
+
   coordinate0 = { x: 0, y: 0, z: 0 };
   coordinate1 = { x: 0, y: 0, z: 0 };
   
@@ -901,7 +929,7 @@ function initGUI() {
       },
     };
   
-  var folder = gui.addFolder('Touched coordinate:');
+  var folder = gui.addFolder('Hovered coordinate:');
   paramX = folder.add( parameters, 'x' );
   paramY = folder.add( parameters, 'y' );
   paramZ = folder.add( parameters, 'z' );
@@ -947,6 +975,42 @@ function initGUI() {
   gui.close();
 }
 
+function save() {
+  brush.position.y = brushHideHeight;
+  
+  var _opacityZ  = coordinateLineMaterialZ.opacity;
+  var _opacityX  = coordinateLineMaterialX.opacity;
+  coordinateLineMaterialZ.opacity = 0.15;
+  coordinateLineMaterialX.opacity = 0.15;
+  lineMaterial.opacity = 0.05;
+  
+  render();
+  
+  window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' ); // 将Canvas转换成图片
+
+  coordinateLineMaterialZ.opacity = _opacityZ;
+  coordinateLineMaterialX.opacity = _opacityX;
+  lineMaterial.opacity = 0.1;
+  
+  render();
+}
+
+function clear() {
+  if ( !confirm( 'Are you sure?' ) ) {
+    return
+  }
+
+  var voxel;
+  for ( var i in allVoxels ) {
+    voxel = allVoxels[ i ];
+    scene.remove( voxel );
+  }
+  topVoxels = [];
+  allVoxels = [];
+  
+  updateHash();
+  render();
+}
 
 
 ////////////////////////////// Utils //////////////////////////////
@@ -975,7 +1039,6 @@ function buildFromHash( ) {
   var data = decode( window.location.hash.substr( 1 ) );
   var i = 0, l = data.length;
 
-  console.log( data );
   while ( i < l ) {
 
     var code = data[ i++ ].toString( 2 );
@@ -994,7 +1057,6 @@ function buildFromHash( ) {
       if ( current.c == 9 ) { // Black
         topVoxels.push( voxel );
       }
-      
     }
   }
   updateHash();
@@ -1007,6 +1069,8 @@ function updateHash() { // 更新当前Hash编码
   last = { x: 0, y: 0, z: 0, c: 0 }, // 上一个
   coordinate, code;
 
+  sortAllVoxels();
+  
   for ( var i in allVoxels ) {
 
     object = allVoxels[ i ];
@@ -1061,7 +1125,6 @@ function updateHash() { // 更新当前Hash编码
     }
   }
 
-  // console.log('data:', data);
   data = encode( data );
   window.location.hash =  data;
   document.getElementById( 'link').href = "http://thewawar.github.io/blog/webgl/my-voxels.html#" + data;
