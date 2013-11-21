@@ -11,7 +11,7 @@ Update Git [1.7.1 ==> 1.8]
 --------------------------
 
     yum remove git
-    yum install perl-CPAN
+    yum install perl-CPAN curl-devel
     
     wget https://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
     tar -zxvf git-1.8.3.2.tar.gz
