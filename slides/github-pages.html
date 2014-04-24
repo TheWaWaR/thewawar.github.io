@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>GitHub pages</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style type="text/css" media="screen">
+      .dashed-hr {
+         border-style: dashed;
+         color: #AAAAAA;
+      }
+    </style>
+    
+  </head>
+  
+  <body>
+
+    <div class="reveal">
+
+
+      
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <a href="https://pages.github.com/">https://pages.github.com/</a>
+          <img src="images/home-page.png" />
+        </section>
+        
+        <!-- Slide: What are github pages? -->
+        <section data-markdown>
+          <script type="text/template">
+            ## What are
+            # Github Pages ?
+
+            <br />
+            
+            - GitHub Pages are public webpages
+            <span style="color:#E83020;">freely</span> hosted and
+            <span style="color:#E83020;">easily</span> published through
+            <a href="#">github.com</a>.
+            - You can create and publish them online using the Automatic Page Generator.
+            - If you prefer to work locally, you can use the GitHub for Mac and Windows apps, or the command line. 
+          </script>
+        </section>
+
+        <!-- Slide.2 -->
+        <section>
+          <h1>How easy?</h1>
+          
+          <br />
+
+          <div class="fragment">
+            <h2 class="">2 Steps</h2>
+            <ol class="">
+              <li>Write a post save as text file (Markdown/HTML)
+                <pre><code data-trim class="bash">
+$ alias vim="emacs -nw -Q"                    
+$ vim 2014-04-23-new-post.md
+                </code></pre>
+              </li>
+              <li>Push the post file to Github repository
+                <pre><code data-trim class="bash">
+$ git add .                  
+$ git commit -m "{New post}"
+$ git push
+                </code></pre>
+              </li>
+            </ol>
+          </div>
+          
+          <p style="color:#EEA236; font-size:72px; margin-top: 36px;"
+             class="fragment roll-in">Yes, It's just that simple!!!</p>
+        </section>
+        
+        <!-- Slide: Getting Started -->
+        <section>
+          <section>
+            <h1>Getting Started</h1>
+
+            <br />
+            
+            <ol>
+              <li class="">Create a github account</li>
+              <li class="">Create a repository: username.github.io</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>Register Github</h2>
+            <img src="images/register-github.png">
+          </section>
+          
+          <section>
+            <h2>Create a repository</h2>
+            <img src="images/create-repo-btn.png">
+          </section>
+          
+          <section>
+            <h2>Create form</h2>
+            <img src="images/create-repo.png">
+          </section>
+          <section>
+            <h3>After submit</h3>
+            <img src="images/after-create.png">
+            <!-- 这就算创建好了一个项目 -->
+          </section>
+          
+        </section>
+
+        <!-- Slide: Your first page -->
+        <section>
+          <section>
+            <h1>Your first page</h1>
+            <img src="images/html-demo.png" />
+          </section>
+
+          <section>
+            <h2>Steps</h2>
+
+            <br />
+            
+            <ul>
+              <li>Clone your repository</li>
+              <li>Add your first page</li>
+              <li>Push changes to github.com</li>
+            </ul>
+            
+            <br />
+            <br />
+
+            <pre><code data-trim class="bash">
+$ git clone https://github.com/{username}/{username}.github.io.git
+$ cd {username}.github.io
+
+# Add your index.html
+$ git add .
+$ git commit -m "My first page: index.html"
+$ git push
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>The html page</h2>
+            <img src="images/html-page.png" class="" alt="" />
+          </section>
+          
+          <section>
+            <h2>Project overview</h2>
+            <img src="images/project-overview.png" class="" alt="" />
+          </section>
+
+          <section>
+            <h2>You'll see:</h2>
+            <img src="images/html-demo.png" />
+
+            <div class="fragment">
+              <br />
+              <br />
+              <h2 style="color:#EEA236;">Crude ?</h2>
+            </div>
+          </section>
+        </section>
+
+        <!-- Slide: Blogging with jekyll -->
+        <section>
+          <section>
+            <!-- Jekyll 只是一个用Ruby写的静态博客生成器 -->
+            <h1>Blogging with jekyll</h1>
+            <img src="images/jekyllrb.png" style="border:none;" alt="" />
+          </section>
+          
+          <section>
+            <h2>Install ruby</h2>
+            <pre><code data-trim class="bash">
+$ wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz
+$ tar -xf ruby-2.1.1.tar.gz
+$ cd ruby-2.1.1
+$ ./configure && make && make install
+            </code></pre>
+
+            <br />
+            <br />
+
+            <h2>Install jekyll</h2>
+            <pre><code data-trim class="bash">
+$ gem install jekyll
+            </code></pre>
+            
+          </section>
+
+          <section>
+            <h2>Setup jekyll</h2>
+            <pre><code data-trim class="bash">
+$ jekyll new jekyll-init
+$ cp -r jekyll-init/*  {username}.github.io
+
+$ git add .
+$ git commit -m "Life is good, we use jekyll now \!"
+$ git push
+            </code></pre>
+
+            <br />
+              
+            <div class="fragment">
+              <a href="http://thewawar1.github.io/">http://{username}.github.io/</a>
+              <br />
+              <img src="images/jekyll-posts-demo.png" />
+            </div>
+          </section>
+
+          <section>
+            <h3>Article page</h3>
+            <img src="images/jekyll-post-demo.png" />
+          </section>
+        </section>
+
+        
+        <!-- Slide: Writting with markdown -->
+        <section>
+          <section>
+            <h2>Writting with markdown</h2>
+            <img src="images/markdown-homepage.png" class="" alt="" />
+          </section>
+          
+          <section>
+            <h3>Header & Paragaph</h3>
+
+            <div style="clear:both;">
+              <img src="images/markdown-test1.png" style="float:left;" />
+              <img src="images/md-show1.png" style="float:left; margin-left:15px;" />
+            </div>
+          </section>
+          
+          <section>
+            <div style="clear:both;">
+              <div style="float:left;">
+                <ol style="clear:both;">
+                  <li>Links</li>
+                  <li>Blockquote</li>
+                  <li>Image</li>
+                  <li>Link</li>
+                </ol>
+                
+                <hr style="border-style:none;" />
+
+                <img src="images/markdown-test2.png" class="" alt="" />
+              </div>
+
+              <div style="float:left;">
+                <img src="images/md-show2.png" class="" alt="" />
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3>Code & HTML</h3>
+            <div style="clear:both;">
+              <img src="images/md-show3.png"
+                   style="float:left; width:580px; margin-right:15px; margin-top: 80px;" />
+              <img src="images/markdown-test3.png" style="float:left;" />
+            </div>
+          </section>
+          
+        </section>
+        
+        <!-- Slide: Jekyll customize -->
+        <section>
+          <h2>Jekyll customize</h2>
+          <img src="images/theme-demo.png" class="" alt="" />
+        </section>
+
+      </div>
+    </div>
+
+
+    
+
+    
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+    </script>
+  </body>
+</html>
