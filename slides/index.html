@@ -17,16 +17,17 @@
     
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <link rel="stylesheet" href="css/reveal.min.css">
-    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="static/css/reveal.min.css">
+    <link rel="stylesheet" href="static/css/theme/default.css" id="theme">
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="static/lib/css/zenburn.css">
 
     <style type="text/css" media="screen">
       .dashed-hr {
+         width: 540px;
          border-style: dashed;
-         color: #AAAAAA;
+         color: #666666;
       }
     </style>
     
@@ -43,9 +44,14 @@
 
         <section>
           <h1>Slides</h1>
+          <br />
           <hr class="dashed-hr" />
-          <a href="intro.html">Reveal.js Introduction</a>
-          <a href="github-pages.html">Github Pages</a>
+          <br />
+          
+          <ul class="">
+            <li><a href="intro.html">Reveal.js Introduction</a></li>
+            <li><a href="github-pages.html">Github Pages</a></li>
+          </ul>
         </section>
 
       </div>
@@ -55,8 +61,8 @@
     
 
     
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.min.js"></script>
+    <script src="static/lib/js/head.min.js"></script>
+    <script src="static/js/reveal.min.js"></script>
 
     <script>
 
@@ -77,12 +83,12 @@
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'static/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'static/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'static/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'static/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'static/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
 
