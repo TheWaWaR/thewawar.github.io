@@ -67,18 +67,17 @@
         <section>
           <h1>How easy?</h1>
           
-          <br />
-
           <div class="fragment">
-            <h2 class="">2 Steps</h2>
+            <h3 class="">2 Steps</h3>
             <ol class="">
-              <li>Write a post save as text file (Markdown/HTML)
+              <li>Write a post
                 <pre><code data-trim class="bash">
 $ alias vim="emacs -nw -Q"                    
 $ vim 2014-04-23-new-post.md
                 </code></pre>
+<br />
               </li>
-              <li>Push the post file to Github repository
+              <li>Push the file to Github.
                 <pre><code data-trim class="bash">
 $ git add .                  
 $ git commit -m "{New post}"
@@ -89,7 +88,7 @@ $ git push
           </div>
           
           <p style="color:#EEA236; font-size:72px; margin-top: 36px;"
-             class="fragment roll-in">Yes, It's just that simple!!!</p>
+             class="fragment roll-in">Yeah, just that simple !!!</p>
         </section>
         
         <!-- Slide: Getting Started -->
@@ -130,7 +129,9 @@ $ git push
         <!-- Slide: Your first page -->
         <section>
           <section>
-            <h1>Your first page</h1>
+            <h1>Our first page</h1>
+            <br />
+            
             <img src="images/html-demo.png" />
           </section>
 
@@ -171,6 +172,7 @@ $ git push
 
           <section>
             <h2>You'll see:</h2>
+            <br />
             <img src="images/html-demo.png" />
 
             <div class="fragment">
@@ -255,7 +257,7 @@ $ git push
             <div style="clear:both;">
               <div style="float:left;">
                 <ol style="clear:both;">
-                  <li>Links</li>
+                  <li>Lists</li>
                   <li>Blockquote</li>
                   <li>Image</li>
                   <li>Link</li>
@@ -285,10 +287,72 @@ $ git push
         
         <!-- Slide: Jekyll customize -->
         <section>
-          <h2>Jekyll customize</h2>
-          <img src="images/theme-demo.png" class="" alt="" />
+          <section>
+            <h2>Jekyll customize</h2>
+            <img src="images/theme-demo.png" class="" alt="" />
+          </section>
+          
+          <section>
+            <h2>How github pages work ?</h2>
+            <img src="images/how-github-pages-work.png" />
+          </section>
+
+          <section>
+            <h2>Jekyll directory structure</h2>
+            <a href="#">username/username.github.io</a>
+            <img style="border-color: #444444;" src="images/jekyll-tree.png" />
+          </section>
+
+          <section>
+            <h2>A Jekyll theme</h2>
+            <img src="images/jekyll-theme-kunka.png" />
+          </section>
+          
+          <section>
+            <a href="https://github.com/pizn/kunka/blob/master/atom.xml">kunka/atom.xml</a>
+            <img src="images/jekyll-kunka-atom.png" />
+          </section>
+
+          <section>
+            <h2>Change theme</h2>
+            
+            <pre><code data-trim class="bash">
+$ git clone https://github.com/pizn/kunka.git
+$ cp -r kunka/*ml kunka/_layouts kunka/css kunka/images {username}.github.io
+# Then remove `url: http://pizn.github.io/kunka' in `_config.yml'
+
+# Push changes to Github.com
+$ cd {username}.github.io
+$ git add .
+$ git commit -m "Update: Change theme."
+$ git push
+            </code></pre>
+          </section>
+          
+          <section>
+            <h3>Da. da. da.</h3>
+            <img src="images/change-to-kunka.png" class="" alt="" />
+          </section>
+          
+          <section>
+            <h2>Advanced</h2>
+            <img src="images/octopress.png" />
+          </section>
         </section>
 
+        <section>
+          <h1>VS. wordpress?</h1>
+          <br />
+          <ol>
+            <li class="fragment">Free & Reliable hosting</li>
+            <li class="fragment">Easy to publish</li>
+            <li class="fragment">Easy to custom</li>
+          </ol>
+        </section>
+
+        <section>
+          <h1>Thank you !</h1>
+        </section>
       </div>
     </div>
 
