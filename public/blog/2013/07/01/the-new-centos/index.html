@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The new CentOS - WEET's way</title>
+  <meta name="author" content="weet">
+
+  
+  <meta name="description" content="Initialization 1. Download the mini version of CentOS-6.4 ISO file. 2. Configure yum Just use the default(centos.ustc.edu.cn). So, nothing to do ~ 3 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="WEET's way" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">WEET's way</a></h1>
+  
+    <h2>如果你不在创造，别人就只能用品味来衡量你，但问题是品位没有办法量化。so create.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:TheWaWaR.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The New CentOS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-01T12:39:00+08:00" pubdate data-updated="true">Jul 1<span>st</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Initialization</h1>
+
+<h3>1. Download the mini version of CentOS-6.4 ISO file.</h3>
+
+<h3>2. Configure yum</h3>
+
+<p>  Just use the default(centos.ustc.edu.cn). So, nothing to do ~</p>
+
+<h3>3. Install some important packages</h3>
+
+<pre><code>yum upgrade
+yum groupinstall "Development Tools"
+yum install wget bzip2 unzip zip man 
+</code></pre>
+
+<p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
+
+<!-- more -->
+
+
+<h1>Install base packages</h1>
+
+<h2>From other articles</h2>
+
+<h3>1. Install tmux</h3>
+
+<h3>2. Install emacs</h3>
+
+<h3>3. Install postgresql</h3>
+
+<h3>4. Update Git &amp; Configure GitHub</h3>
+
+<h2>Install Python2.7</h2>
+
+<blockquote><p> <a href="http://toomuchdata.com/2012/06/25/how-to-install-python-2-7-3-on-centos-6-2/">How to install Python 2.7 and 3.3 on CentOS 6</a></p></blockquote>
+
+<h3>1. Install Python itself</h3>
+
+<pre><code>yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
+wget http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
+tar xf Python-2.7.5.tar.bz2
+cd Python-2.7.5
+./configure --prefix=/usr/local
+make &amp;&amp; make altinstall
+</code></pre>
+
+<h3>2. Install pip</h3>
+
+<pre><code>wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-0.7.4.tar.gz
+wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.3.1.tar.gz
+# Install them by the given order
+
+# Edit *~/.pip/pip.conf* and add this:
+[global]
+index-url=http://pypi.v2ex.com/simple
+
+pip install ipython virtualenv pyflakes
+</code></pre>
+
+<h2>Install Zsh</h2>
+
+<pre><code>wget http://sourceforge.net/projects/zsh/files/zsh/5.0.2/zsh-5.0.2.tar.bz2
+wget http://sourceforge.net/projects/zsh/files/zsh-doc/5.0.2/zsh-5.0.2-doc.tar.bz2
+tar xf zsh-5.0.2.tar.bz2
+tar xf zsh-5.0.2-doc.tar.bz2
+cd zsh-5.0.2
+./configure &amp;&amp; make &amp;&amp; make install
+
+# Config zsh
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/87a8f1bddec42d94f93e2d851e39ad6cf4e0ef48/.zshrc &gt; ~/.zshrc
+</code></pre>
+
+<h2>Install Ruby</h2>
+
+<h3>1. Standard Rbenv Installation</h3>
+
+<pre><code>cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.zshenv
+echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.zshenv
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+source ~/.zshenv
+</code></pre>
+
+<h3>2. Install Ruby 1.9.3</h3>
+
+<pre><code>rbenv install 1.9.3-p194
+rbenv rehash
+# Fix by https://github.com/sstephenson/rbenv/issues/73
+rbenv global 1.9.3-p194
+</code></pre>
+
+<h2>Install JDK6</h2>
+
+<pre><code># Upload jdk-6u45-linux-x64-rpm.bin
+chmod u+x jdk-6u45-linux-x64-rpm.bin
+./jdk-6u45-linux-x64-rpm.bin
+</code></pre>
+
+<h2>Configure Dropbox</h2>
+
+<blockquote><p><a href="https://www.dropbox.com/install?os=lnx">Install dropbox on your Linux Server</a></p>
+
+<p><a href="http://www.techpage3.com/2013/01/using-dropbox-from-command-line-on-your.html">Using Dropbox from command line on your Linux Server</a></p></blockquote>
+
+<pre><code>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd &amp;
+</code></pre>
+
+<h1> FAQ </h1>
+
+<h3>1. How to let dhclient(or other service) autostart ?</h3>
+
+<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for an IP address lease</a></p></blockquote>
+
+<pre><code>... [HOLD] ...
+</code></pre>
+
+<h3>2. tree 乱码</h3>
+
+<pre><code>yum remove tree
+wget http://mama.indstate.edu/users/ice/tree/src/tree-1.6.0.tgz
+tar zxvf tree-1.6.0.tgz
+make &amp;&amp; make install    
+</code></pre>
+
+<h3>3. Goagent</h3>
+
+<pre><code>curl -L https://github.com/goagent/goagent/archive/3.0.zip &gt; goagent-3.0.zip
+unzip goagent-3.0.zip
+# Edit *proxy.ini* change *appid* to *weet-proxy*
+python2.7 proxy.py
+</code></pre>
+
+<blockquote><p>Created at: [2013-06-29 12:45]</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">weet</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-01T12:39:00+08:00" pubdate data-updated="true">Jul 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/29/test-octopress/" title="Previous Post: Test Octopress & Markdown">&laquo; Test Octopress & Markdown</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/11/all-about-postgresql/" title="Next Post: All about Postgresql">All about Postgresql &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/16/all-about-git/">All About Git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/11/all-about-octopress/">All About Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/11/all-about-postgresql/">All About Postgresql</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/01/the-new-centos/">The New CentOS</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - weet -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thewawar';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos/';
+        var disqus_url = 'http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

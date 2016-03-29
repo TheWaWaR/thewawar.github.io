@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>All about Emacs - WEET's way</title>
+  <meta name="author" content="weet">
+
+  
+  <meta name="description" content="Installation Some requirements 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置 一个趁手的Emacs. 1. Install Emacs wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="WEET's way" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">WEET's way</a></h1>
+  
+    <h2>如果你不在创造，别人就只能用品味来衡量你，但问题是品位没有办法量化。so create.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:TheWaWaR.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">All About Emacs</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T14:01:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Installation</h2>
+
+<h3>Some requirements</h3>
+
+<p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
+ 一个趁手的Emacs.</p>
+
+<h3>1. Install Emacs</h3>
+
+<pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
+tar Jxf emacs-24.3.tar.xz
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no --with-png=no --with-gif=no --with-tiff=no
+make &amp;&amp; make install
+</code></pre>
+
+<h3>2. Get configuration</h3>
+
+<pre><code>git clone git@github.com:TheWaWaR/.emacs.d.git
+
+# In emacs, compile all files in .emacs.d directory
+C-u 0 M-x byte-recompile-directory
+</code></pre>
+
+<h2>Oh! The features!</h2>
+
+<h3>. undo tree</h3>
+
+<h3>. Window control : [winner-undo]</h3>
+
+<h3>. Tabs : [tabbar]</h3>
+
+<h3>. auto-complete</h3>
+
+<h3>. yasnippet</h3>
+
+<h3>. Color theme : [zenburn]</h3>
+
+<blockquote><p><a href="https://github.com/bbatsov/zenburn-emacs">zenburn on GitHub</a></p></blockquote>
+
+<h3>. Dictionary : [youdao, sdcv]</h3>
+
+<h3>. Version control : [magit]</h3>
+
+<p>Already the latest version[1.2.0]. Use <code>e</code> in magit mode to use the
+<em>magic</em> <code>ediff</code> XD.</p>
+
+<h3>. Input method : [eim]</h3>
+
+<h3>. Markup language : [markdown, rst]</h3>
+
+<h3>. Python support</h3>
+
+<ul>
+<li>highlight-indentation</li>
+<li>pyflakes</li>
+<li>jedi</li>
+</ul>
+
+
+<h3>. Database access</h3>
+
+<ul>
+<li>postgresql</li>
+<li>mysql</li>
+<li>sqlite</li>
+</ul>
+
+
+<h3>. Global varibles : []</h3>
+
+<h3>. Little modes:</h3>
+
+<pre><code>saveplace      --- automatically save place in files
+ffap           --- file file (or url) at point
+uniquify       --- unique buffer names dependent on file name
+recentf        --- setup a menu of recently opened files
+open-next-line --- Behave like vi's o command
+tramp          --- Transparent Remote Access, Multiple Protocol
+ansi-color     --- translate ANSI escape sequences into faces
+</code></pre>
+
+<h3>. My custom functions : [my-defuns.el]</h3>
+
+<h3>. My custom keybinds : [my-key-bindings.el]</h3>
+
+<h2> FAQ </h2>
+
+<p>&hellip;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">weet</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T14:01:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/11/all-about-octopress/" title="Previous Post: All about Octopress">&laquo; All about Octopress</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/16/all-about-git/" title="Next Post: All about Git">All about Git &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/16/all-about-git/">All About Git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/11/all-about-emacs/">All About Emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/11/all-about-octopress/">All About Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/11/all-about-postgresql/">All About Postgresql</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/01/the-new-centos/">The New CentOS</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - weet -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thewawar';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs/';
+        var disqus_url = 'http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

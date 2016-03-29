@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Programming | WEET's way]]></title>
+  <link href="http://TheWaWaR.github.io/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://TheWaWaR.github.io/"/>
+  <updated>2016-03-29T10:39:57+08:00</updated>
+  <id>http://TheWaWaR.github.io/</id>
+  <author>
+    <name><![CDATA[weet]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[All about Emacs]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs/"/>
+    <updated>2013-07-11T14:01:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-emacs</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<h3>Some requirements</h3>
+
+<p> 完全放弃折腾, 最多使用自带的vi, 考虑如何以最快的时间在一台主机上配置
+ 一个趁手的Emacs.</p>
+
+<h3>1. Install Emacs</h3>
+
+<pre><code>wget http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.xz
+tar Jxf emacs-24.3.tar.xz
+./configure --with-x-toolkit=no --with-xpm=no --with-jpeg=no --with-png=no --with-gif=no --with-tiff=no
+make &amp;&amp; make install
+</code></pre>
+
+<h3>2. Get configuration</h3>
+
+<pre><code>git clone git@github.com:TheWaWaR/.emacs.d.git
+
+# In emacs, compile all files in .emacs.d directory
+C-u 0 M-x byte-recompile-directory
+</code></pre>
+
+<h2>Oh! The features!</h2>
+
+<h3>. undo tree</h3>
+
+<h3>. Window control : [winner-undo]</h3>
+
+<h3>. Tabs : [tabbar]</h3>
+
+<h3>. auto-complete</h3>
+
+<h3>. yasnippet</h3>
+
+<h3>. Color theme : [zenburn]</h3>
+
+<blockquote><p><a href="https://github.com/bbatsov/zenburn-emacs">zenburn on GitHub</a></p></blockquote>
+
+<h3>. Dictionary : [youdao, sdcv]</h3>
+
+<h3>. Version control : [magit]</h3>
+
+<p>Already the latest version[1.2.0]. Use <code>e</code> in magit mode to use the
+<em>magic</em> <code>ediff</code> XD.</p>
+
+<h3>. Input method : [eim]</h3>
+
+<h3>. Markup language : [markdown, rst]</h3>
+
+<h3>. Python support</h3>
+
+<ul>
+<li>highlight-indentation</li>
+<li>pyflakes</li>
+<li>jedi</li>
+</ul>
+
+
+<h3>. Database access</h3>
+
+<ul>
+<li>postgresql</li>
+<li>mysql</li>
+<li>sqlite</li>
+</ul>
+
+
+<h3>. Global varibles : []</h3>
+
+<h3>. Little modes:</h3>
+
+<pre><code>saveplace      --- automatically save place in files
+ffap           --- file file (or url) at point
+uniquify       --- unique buffer names dependent on file name
+recentf        --- setup a menu of recently opened files
+open-next-line --- Behave like vi's o command
+tramp          --- Transparent Remote Access, Multiple Protocol
+ansi-color     --- translate ANSI escape sequences into faces
+</code></pre>
+
+<h3>. My custom functions : [my-defuns.el]</h3>
+
+<h3>. My custom keybinds : [my-key-bindings.el]</h3>
+
+<h2> FAQ </h2>
+
+<p>&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about Octopress]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress/"/>
+    <updated>2013-07-11T13:59:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-octopress</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<h3>1. Setup Octopress</h3>
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress    # If you use RVM, You'll be asked if you trust the
+.rvmrc file (say yes).
+ruby --version  # Should report Ruby 1.9.3p194
+</code></pre>
+
+<h3>2. Install Dependencies</h3>
+
+<pre><code>gem install bundler
+rbenv rehash
+bundle install
+</code></pre>
+
+<h3>3. Install the default Octopress theme</h3>
+
+<pre><code>rake intall
+</code></pre>
+
+<h3>4. Deploying to Github Pages</h3>
+
+<pre><code>rake seup_github_pages
+rake gen_deploy
+</code></pre>
+
+<h3>5. Commit the source for blog</h3>
+
+<pre><code>git add .
+git commit -m "COMMIT MESSAGE"
+git push origin source
+</code></pre>
+
+<h2>Multiple machines</h2>
+
+<blockquote><p><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">Clone Your Octopress to Blog From Two Places</a></p></blockquote>
+
+<pre><code>git clone -b source git@github.com:TheWaWaR/thewawar.github.io.git
+
+cd thewawar.github.io
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+
+gem install bundler
+rbenv rehash
+bundle install
+rake setup_github_pages
+# Input:: git@github.com:TheWaWaR/thewawar.github.io.git
+
+# ** Maybe alse need:
+git clone git@github.com:TheWaWaR/thewawar.github.io.git _deploy
+rake gen_deploy
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[All about Postgresql]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql/"/>
+    <updated>2013-07-11T11:36:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/11/all-about-postgresql</id>
+    <content type="html"><![CDATA[<h2>Installation</h2>
+
+<blockquote><p> <a href="https://gist.github.com/bvajda/1296795">Install Postgresql 9.1 server on CentOS 6</a></p></blockquote>
+
+<pre><code>rpm -Uvh http://yum.pgrpms.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
+yum install postgresql91-server.x86_64 postgresql91-devel.x86_64
+</code></pre>
+
+<h3>Additional (after install postgresql 9.1)</h3>
+
+<p>``` bash</p>
+
+<pre><code>service postgresql-9.1 initdb
+
+# You'd better to edit ~/.zshrc
+export PATH=$PATH:/usr/pgsql-9.1/bin     # For install pgcopy2
+</code></pre>
+
+<p>```</p>
+
+<h2>Add user</h2>
+
+<blockquote><p> <a href="http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/">PostgreSQL add or create a user account and grant permission for database</a></p></blockquote>
+
+<h3>1. In Shell</h3>
+
+<p>``` bash</p>
+
+<pre><code># Add a user called *tom*
+adduser tom
+passwd tom
+
+# Change user
+su - postgres
+
+# Start postgresql client
+psql
+</code></pre>
+
+<p>```</p>
+
+<h3>2. Inside Postgresql</h3>
+
+<p>``` sql</p>
+
+<pre><code>CREATE USER tom WITH PASSWORD 'public';
+-- Use this to change password &gt;&gt;&gt; \password tom;
+
+CREATE DATABASE jerry;
+GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
+\q
+</code></pre>
+
+<p>```</p>
+
+<h2>Authentication issue</h2>
+
+<p>By default, the authentication method is (<code>peer</code> for Unix domain
+socket connections AND <code>ident</code> for IPV4 local connections), if you
+login postgresql server by:</p>
+
+<pre><code>psql -d myDB -U kafka -h 127.0.0.1
+</code></pre>
+
+<p>It will report an error like this:</p>
+
+<pre><code>psql: FATAL:  Ident authentication failed for user "kafka"
+</code></pre>
+
+<p>In <em>pg_hba.conf</em>, Change all authentication type to <code>md5</code> (means by
+password that after md5 processed).</p>
+
+<blockquote><p> <a href="http://www.postgresql.org/docs/9.1/static/auth-methods.html">Authentication Methods</a></p></blockquote>
+
+<p><em>[Option]</em> :: In <em>postgresql.conf</em> , Change <code>listen_addresses</code> from
+ <code>localhost</code> to <code>*</code> so you can connect postgresql from remote host.</p>
+
+<p>If you get message like:</p>
+
+<pre><code>psql: FATAL:  no pg_hba.conf entry for host "115.192.190.55", user "postgres", database "postgres", SSL off
+</code></pre>
+
+<p>You should change something in file <em>pg_hba.conf</em>, add a line like this:</p>
+
+<pre><code>host    all             all             0.0.0.0/0            md5
+</code></pre>
+
+<h1> FAQ </h1>
+
+<h3>1. How to import(or export) data or scheme from .sql file?</h3>
+
+<pre><code>psql -U userName dbName &lt; DATA_OR_SCHEME.sql
+
+pg_dump -U userName dbname &gt; output.sql
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The new CentOS]]></title>
+    <link href="http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos/"/>
+    <updated>2013-07-01T12:39:00+08:00</updated>
+    <id>http://TheWaWaR.github.io/blog/2013/07/01/the-new-centos</id>
+    <content type="html"><![CDATA[<h1>Initialization</h1>
+
+<h3>1. Download the mini version of CentOS-6.4 ISO file.</h3>
+
+<h3>2. Configure yum</h3>
+
+<p>  Just use the default(centos.ustc.edu.cn). So, nothing to do ~</p>
+
+<h3>3. Install some important packages</h3>
+
+<pre><code>yum upgrade
+yum groupinstall "Development Tools"
+yum install wget bzip2 unzip zip man 
+</code></pre>
+
+<p>Time spend: [21:17-21:40] 25min, 400kb/s</p>
+
+<!-- more -->
+
+
+<h1>Install base packages</h1>
+
+<h2>From other articles</h2>
+
+<h3>1. Install tmux</h3>
+
+<h3>2. Install emacs</h3>
+
+<h3>3. Install postgresql</h3>
+
+<h3>4. Update Git &amp; Configure GitHub</h3>
+
+<h2>Install Python2.7</h2>
+
+<blockquote><p> <a href="http://toomuchdata.com/2012/06/25/how-to-install-python-2-7-3-on-centos-6-2/">How to install Python 2.7 and 3.3 on CentOS 6</a></p></blockquote>
+
+<h3>1. Install Python itself</h3>
+
+<pre><code>yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
+wget http://python.org/ftp/python/2.7.5/Python-2.7.5.tar.bz2
+tar xf Python-2.7.5.tar.bz2
+cd Python-2.7.5
+./configure --prefix=/usr/local
+make &amp;&amp; make altinstall
+</code></pre>
+
+<h3>2. Install pip</h3>
+
+<pre><code>wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-0.7.4.tar.gz
+wget --no-check-certificate https://pypi.python.org/packages/source/p/pip/pip-1.3.1.tar.gz
+# Install them by the given order
+
+# Edit *~/.pip/pip.conf* and add this:
+[global]
+index-url=http://pypi.v2ex.com/simple
+
+pip install ipython virtualenv pyflakes
+</code></pre>
+
+<h2>Install Zsh</h2>
+
+<pre><code>wget http://sourceforge.net/projects/zsh/files/zsh/5.0.2/zsh-5.0.2.tar.bz2
+wget http://sourceforge.net/projects/zsh/files/zsh-doc/5.0.2/zsh-5.0.2-doc.tar.bz2
+tar xf zsh-5.0.2.tar.bz2
+tar xf zsh-5.0.2-doc.tar.bz2
+cd zsh-5.0.2
+./configure &amp;&amp; make &amp;&amp; make install
+
+# Config zsh
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+curl https://gist.github.com/TheWaWaR/28291f8fb326bbdfe714/raw/87a8f1bddec42d94f93e2d851e39ad6cf4e0ef48/.zshrc &gt; ~/.zshrc
+</code></pre>
+
+<h2>Install Ruby</h2>
+
+<h3>1. Standard Rbenv Installation</h3>
+
+<pre><code>cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.zshenv
+echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.zshenv
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+source ~/.zshenv
+</code></pre>
+
+<h3>2. Install Ruby 1.9.3</h3>
+
+<pre><code>rbenv install 1.9.3-p194
+rbenv rehash
+# Fix by https://github.com/sstephenson/rbenv/issues/73
+rbenv global 1.9.3-p194
+</code></pre>
+
+<h2>Install JDK6</h2>
+
+<pre><code># Upload jdk-6u45-linux-x64-rpm.bin
+chmod u+x jdk-6u45-linux-x64-rpm.bin
+./jdk-6u45-linux-x64-rpm.bin
+</code></pre>
+
+<h2>Configure Dropbox</h2>
+
+<blockquote><p><a href="https://www.dropbox.com/install?os=lnx">Install dropbox on your Linux Server</a></p>
+
+<p><a href="http://www.techpage3.com/2013/01/using-dropbox-from-command-line-on-your.html">Using Dropbox from command line on your Linux Server</a></p></blockquote>
+
+<pre><code>cd ~ &amp;&amp; wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd &amp;
+</code></pre>
+
+<h1> FAQ </h1>
+
+<h3>1. How to let dhclient(or other service) autostart ?</h3>
+
+<blockquote><p><a href="http://www.cyberciti.biz/faq/rhel-centos-configure-persistent-dhcp-client/">Configure Linux DHCP client ( dhclient ) to persistently look for an IP address lease</a></p></blockquote>
+
+<pre><code>... [HOLD] ...
+</code></pre>
+
+<h3>2. tree 乱码</h3>
+
+<pre><code>yum remove tree
+wget http://mama.indstate.edu/users/ice/tree/src/tree-1.6.0.tgz
+tar zxvf tree-1.6.0.tgz
+make &amp;&amp; make install    
+</code></pre>
+
+<h3>3. Goagent</h3>
+
+<pre><code>curl -L https://github.com/goagent/goagent/archive/3.0.zip &gt; goagent-3.0.zip
+unzip goagent-3.0.zip
+# Edit *proxy.ini* change *appid* to *weet-proxy*
+python2.7 proxy.py
+</code></pre>
+
+<blockquote><p>Created at: [2013-06-29 12:45]</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>
